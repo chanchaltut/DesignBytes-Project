@@ -13,7 +13,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative text-white min-h-auto bg-gradient-to-br from-[#0e0457] to-[#06014b]">
+    <section className="relative text-white h-[100vh] bg-gradient-to-br from-[#0e0457] to-[#06014b]">
       <div className="container pt-32 pb-16 md:pb-48 relative z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center p-20 md:p-4">
           {/* Left Content */}
