@@ -29,7 +29,7 @@ const whyUsData = [
 
 const WhyUsCard = ({ image, title, description }) => (
   <div className="flex flex-col items-center text-center px-4 py-8">
-    <div className="flex items-center justify-center w-32 h-32 md:w-36 md:h-36 border-4 border-[#231a6f] rounded-full mb-6 bg-white">
+    <div className="flex items-center justify-center w-32 h-32 md:w-36 md:h-36 border-4 border-[#00204a] rounded-full mb-6 bg-white">
       <img src={image} alt={title} className="w-16 h-16 md:w-20 md:h-20 object-contain" />
     </div>
     <h3 className="text-xl md:text-2xl font-bold text-[#1B0E41] mb-4">{title}</h3>
