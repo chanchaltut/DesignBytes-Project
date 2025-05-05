@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Open Sans:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom styles below */
-
+/* Custom styles */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -23,15 +22,15 @@
 
 @layer components {
   .container {
-    @apply max-w-[1320px] mx-auto px-4;
+    @apply max-w-[1320px] mx-auto px-[2rem];
   }
 
   .btn {
-    @apply inline-block py-3 px-8 bg-[#00D4FF] text-white font-medium transition-all duration-300 hover: bg-[#1B0E41];
+    @apply inline-block py-3 px-8 bg-[#00D4FF] text-white font-medium transition-all duration-300 hover:bg-[#1B0E41];
   }
 
   .section-title {
-    @apply text-4xl md: text-5xl font-bold mb-4;
+    @apply text-4xl font-bold mb-4;
   }
 
   .section-title span {
@@ -41,12 +40,21 @@
   .section-subtitle {
     @apply text-lg text-gray-600 mb-12 max-w-2xl mx-auto text-center;
   }
+}
 
+/* Responsive media query for section-title */
+@media (min-width: 768px) {
+  .section-title {
+    @apply text-[2rem];
+  }
+}
+
+/* Custom animation */
+@layer utilities {
   @keyframes float {
     0%, 100% {
       transform: translateY(0);
     }
-
     50% {
       transform: translateY(-20px);
     }

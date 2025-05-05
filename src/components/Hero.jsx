@@ -13,12 +13,12 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative text-white min-h-auto bg-gradient-to-br from-[#231a6f] to-[#0f054c]">
-      <div className="container mx-auto px-4 pt-32 pb-16 md:pb-48 relative z-10">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+    <section className="relative text-white min-h-auto bg-gradient-to-br from-[#0e0457] to-[#06014b]">
+      <div className="container pt-32 pb-16 md:pb-48 relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 items-center p-20 md:p-4">
           {/* Left Content */}
           <div className="text-left">
-            <h1 className="text-[3rem] font-bold uppercase mb-[15px] text-white">
+            <h1 className="text-[3rem] font-bold uppercase mb-[15px] text-white leading-[3.5rem]">
               CRYPTO
               <br />
               CURRENCY
@@ -52,7 +52,7 @@ const Hero = () => {
 
       {/* Wave background */}
       <div
-        className="absolute bottom-0 left-0 right-0 w-full h-[320px] bg-no-repeat bg-cover bg-bottom"
+        className="hidden md:block absolute bottom-[-12rem] left-0 right-0 w-full h-[320px] bg-no-repeat bg-cover bg-bottom"
         style={{ backgroundImage: 'url("/images/hero-bg.png")' }}
       />
     </section>

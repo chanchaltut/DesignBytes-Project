@@ -1,13 +1,13 @@
 const About = () => {
   return (
     <section id="about" className="py-20 bg-[#00204a]">
-      <div className="container mx-auto px-4">
+      <div className="container">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-[2rem] font-bold mb-4">
             <span className="text-white">About </span>
             <span className="text-[#00D4FF]">Us</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p className="text-[#ffffff] mx-auto">
             Magni quod blanditiis non minus sed aut voluptatum illum quisquam
             aspernatur ullam vel beatae rerum ipsum voluptatibus
           </p>
@@ -23,10 +23,10 @@ const About = () => {
           </div>
 
           <div>
-            <h3 className="text-3xl font-bold text-[#00D4FF] mb-6">
+            <h3 className="text-3xl font-bold text-[#ffffff] mb-6">
               We Are Finexo
             </h3>
-            <p className="text-gray-300 mb-6 text-lg">
+            <p className="text-[#ffffff] mb-6 text-lg">
               There are many variations of passages of Lorem Ipsum available,
               but the majority have suffered alteration in some form, by
               injected humour, or randomised words which don't look even

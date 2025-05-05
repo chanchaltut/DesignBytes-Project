@@ -12,8 +12,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50 px-6">
-      <div className="container mx-auto">
+    <nav className="bg-white shadow-md fixed w-full z-50 px-[1.5rem]">
+     
         <div className="flex items-center justify-between h-[4rem]">
           {/* Logo */}
           <a href="#" className="flex items-center">
@@ -59,7 +59,7 @@ const Navbar = () => {
           >
             <i className={`fas ${isOpen ? "fa-times" : "fa-bars"} text-xl`}></i>
           </button>
-        </div>
+      
 
         {/* Mobile Menu */}
         {isOpen && (

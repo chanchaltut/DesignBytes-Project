@@ -26,9 +26,9 @@ const Team = () => {
 
   return (
     <section className="bg-[#00204a] py-20" id="team">
-      <div className="container mx-auto px-4">
+      <div className="container">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-[2rem] font-bold mb-4">
             <span className="text-white">Our </span>
             <span className="text-[#00D4FF]">Team</span>
           </h2>
@@ -38,14 +38,14 @@ const Team = () => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-[#00204a] p-6 -lg border border-[#1B0E41]/20"
+              className="bg-[#00285c] p-6 -lg border border-[#1B0E41]/20"
             >
               <div className="mb-6">
-                <div className="w-40 h-40 mx-auto overflow-hidden border-4 border-white">
+                <div className="w-[120px] h-[120px] mx-auto overflow-hidden border-4 border-white rounded-full">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="w-[120px] h-[120px] object-cover"
                   />
                 </div>
               </div>

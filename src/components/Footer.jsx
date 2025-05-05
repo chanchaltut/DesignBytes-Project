@@ -1,103 +1,93 @@
 import React from "react";
 
-const Footer = () => {
-  return (
-    <footer className="bg-[#00204a] text-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Address Section */}
-          <div>
-            <h4 className="text-xl text-white font-bold mb-6">Address</h4>
-            <div className="space-y-4">
-              <p className="flex items-start">
-                <i className="fas fa-map-marker-alt mt-1.5 mr-3"></i>
-                Location
-              </p>
-              <p className="flex items-center">
-                <i className="fas fa-phone-alt mr-3"></i>
-                Call +01 1234567890
-              </p>
-              <p className="flex items-center">
-                <i className="far fa-envelope mr-3"></i>
-                demo@gmail.com
-              </p>
-            </div>
-            <div className="flex space-x-4 mt-6">
-              <a href="#" className="text-white hover:text-[#00D4FF]">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#" className="text-white hover:text-[#00D4FF]">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-white hover:text-[#00D4FF]">
-                <i className="fab fa-linkedin"></i>
-              </a>
-              <a href="#" className="text-white hover:text-[#00D4FF]">
-                <i className="fab fa-instagram"></i>
-              </a>
-            </div>
-          </div>
+const socialLinks = [
+  { icon: "fab fa-facebook", href: "#" },
+  { icon: "fab fa-twitter", href: "#" },
+  { icon: "fab fa-linkedin", href: "#" },
+  { icon: "fab fa-instagram", href: "#" },
+];
 
-          {/* Info Section */}
-          <div>
-            <h4 className="text-xl text-white font-bold mb-6">Info</h4>
-            <p className="text-gray-300">
-              necessary, making this the first true generator on the Internet.
-              It uses a dictionary of over 200 Latin words, combined with a
-              handful
+const navLinks = [
+  { name: "Home", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "Services", href: "#services" },
+  { name: "Why Us", href: "#why-us" },
+  { name: "Team", href: "#team" },
+];
+
+const columnTitleClass = "text-[1.5rem] text-white font-bold mb-4";
+const linkClass = "hover:text-[#00D4FF]";
+const iconClass = "text-white hover:text-[#00D4FF]";
+
+const Footer = () => (
+  <footer className="bg-[#00204a] text-white pt-16 pb-8">
+    <div className="container">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Address Section */}
+        <div>
+          <h4 className={columnTitleClass}>Address</h4>
+          <div className="space-y-4">
+            <p className="flex items-start">
+              <i className="fas fa-map-marker-alt mt-1.5 mr-3"></i>
+              Location
+            </p>
+            <p className="flex items-center">
+              <i className="fas fa-phone-alt mr-3"></i>
+              Call +01 1234567890
+            </p>
+            <p className="flex items-center">
+              <i className="far fa-envelope mr-3"></i>
+              demo@gmail.com
             </p>
           </div>
-
-          {/* Links Section */}
-          <div>
-            <h4 className="text-xl text-white font-bold mb-6">Links</h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="hover:text-[#00D4FF]">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-[#00D4FF]">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#00D4FF]">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#why-us" className="hover:text-[#00D4FF]">
-                  Why Us
-                </a>
-              </li>
-              <li>
-                <a href="#team" className="hover:text-[#00D4FF]">
-                  Team
-                </a>
-              </li>
-            </ul>
+          <div className="flex space-x-4 mt-6">
+            {socialLinks.map(({ icon, href }, idx) => (
+              <a key={icon + idx} href={href} className={iconClass}>
+                <i className={icon}></i>
+              </a>
+            ))}
           </div>
+        </div>
 
-          {/* Subscribe Section */}
-          <div>
-            <h4 className="text-xl text-white font-bold mb-6">Subscribe</h4>
-            <div className="space-y-4">
-              <input
-                type="email"
-                placeholder="Enter email"
-                className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-600  focus:outline-none focus:border-[#00D4FF]"
-              />
-              <button className="w-full bg-[#00D4FF] text-white py-2 px-6  hover:bg-opacity-90 transition-all uppercase font-medium">
-                Subscribe
-              </button>
-            </div>
+        {/* Info Section */}
+        <div>
+          <h4 className={columnTitleClass}>Info</h4>
+          <p className="text-[#ffffff] text-[1rem] w-[16rem]">
+            necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
+          </p>
+        </div>
+
+        {/* Links Section */}
+        <div>
+          <h4 className={columnTitleClass}>Links</h4>
+          <ul className="space-y-3">
+            {navLinks.map(({ name, href }) => (
+              <li key={name}>
+                <a href={href} className={linkClass}>
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Subscribe Section */}
+        <div>
+          <h4 className={columnTitleClass}>Subscribe</h4>
+          <div className="space-y-4">
+            <input
+              type="email"
+              placeholder="Enter email"
+              className="w-full bg-transparent border-0 border-b border-white text-white placeholder-white focus:ring-0 focus:outline-none focus:border-[#00D4FF] py-1 mb-2"
+            />
+            <button className="w-full bg-[#00D4FF] text-white py-2 px-6 hover:bg-opacity-90 transition-all uppercase font-medium mt-2">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
-    </footer>
-  );
-};
+    </div>
+  </footer>
+);
 
 export default Footer;
