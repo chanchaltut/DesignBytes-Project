@@ -58,7 +58,7 @@ const Services = () => {
         <div className="text-center mt-12">
           <a
             href="#"
-            className="inline-block bg-accent text-white px-8 py-3 -full text-lg font-medium hover:bg-dark transition-all"
+            className="inline-block bg-accent text-white px-8 py-3 text-lg font-medium hover:bg-dark transition-all"
           >
             View All
           </a>

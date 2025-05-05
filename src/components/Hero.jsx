@@ -31,7 +31,7 @@ const Hero = () => {
             </p>
             <a
               href="#"
-              className="inline-block bg-[#00D4FF] text-white px-6 md:px-8 py-3 -full text-base md:text-lg font-medium hover:bg-opacity-90 transition-all uppercase tracking-wide"
+              className="inline-block bg-[#00D4FF] text-white px-6 md:px-8 py-3 text-base md:text-lg font-medium hover:bg-opacity-90 transition-all uppercase tracking-wide"
             >
               Read More
             </a>

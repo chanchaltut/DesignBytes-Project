@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const TestimonialCard = ({ name, text, image }) => (
   <div className="bg-white p-8 -lg shadow-md">
     <div className="flex items-center mb-6">
-      <div className="w-16 h-16 -full overflow-hidden bg-gray-200 mr-4">
+      <div className="w-16 h-16 overflow-hidden bg-gray-200 mr-4">
         {image ? (
           <img src={image} alt={name} className="w-full h-full object-cover" />
         ) : (
@@ -72,7 +72,7 @@ const Testimonials = () => {
           {Array.from({ length: testimonials.length / 2 }).map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 -full transition-colors ${
+              className={`w-3 h-3 transition-colors ${
                 currentSlide === index * 2 ? "bg-accent" : "bg-gray-300"
               }`}
               onClick={() => setCurrentSlide(index * 2)}

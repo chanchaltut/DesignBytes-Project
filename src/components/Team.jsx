@@ -41,7 +41,7 @@ const Team = () => {
               className="bg-[#00204a] p-6 -lg border border-[#1B0E41]/20"
             >
               <div className="mb-6">
-                <div className="w-40 h-40 mx-auto -full overflow-hidden border-4 border-white">
+                <div className="w-40 h-40 mx-auto overflow-hidden border-4 border-white">
                   <img
                     src={member.image}
                     alt={member.name}

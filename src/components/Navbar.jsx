@@ -41,7 +41,7 @@ const Navbar = () => {
               <a
                 href="#"
                 className="flex items-center space-x-1 text-[#007bff] hover:text-
-                [#00D4FF] px-6 py-2 -full hover:bg-opacity-90 transition-all"
+                [#00D4FF] px-6 py-2 hover:bg-opacity-90 transition-all"
               >
                 <i className="fas fa-user text-sm"></i>
                 <span className="font-normal">LOGIN</span>
@@ -77,7 +77,7 @@ const Navbar = () => {
             <div className="flex flex-col space-y-4 pt-4">
               <a
                 href="#"
-                className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-2 -full hover:bg-opacity-90 transition-all"
+                className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-2 hover:bg-opacity-90 transition-all"
                 onClick={() => setIsOpen(false)}
               >
                 <i className="fas fa-user text-sm"></i>
