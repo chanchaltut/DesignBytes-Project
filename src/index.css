@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Open Sans:wght@400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  body {
+    @apply font-sans text-gray-800 leading-normal;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-[#1B0E41];
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1320px] mx-auto px-4;
+  }
+
+  .btn {
+    @apply inline-block py-3 px-8 bg-[#00D4FF] text-white -full font-medium transition-all duration-300 hover: bg-[#1B0E41];
+  }
+
+  .section-title {
+    @apply text-4xl md: text-5xl font-bold mb-4;
+  }
+
+  .section-title span {
+    @apply text-[#00D4FF];
+  }
+
+  .section-subtitle {
+    @apply text-lg text-gray-600 mb-12 max-w-2xl mx-auto text-center;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
