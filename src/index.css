@@ -44,11 +44,6 @@
 
 /* Hero Section Styles */
 .hero-section {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 212, 255, 0.08) 0%,
-    rgba(27, 14, 65, 0.08) 100%
-  );
   padding: 4rem 2rem 6rem;
   margin-bottom: 3rem;
   text-align: center;
