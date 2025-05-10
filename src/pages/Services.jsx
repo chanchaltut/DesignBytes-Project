@@ -37,11 +37,12 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-light relative my-[12rem]">
+    <section id="services" className="py-20 bg-light relatives">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-[2rem] font-bold text-dark">
-            <span className="text-[#0C0C0C]">Our</span> <span className="text-[#00BBF0]">Services</span>
+            <span className="text-[#0C0C0C]">Our</span>{" "}
+            <span className="text-[#00BBF0]">Services</span>
           </h2>
           <p className="text-[#0C0C0C] mx-auto">
             There are many variations of passages of Lorem Ipsum available, but
