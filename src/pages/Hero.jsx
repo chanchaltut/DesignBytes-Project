@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="hero-section h-[75vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center">
+    <section className="hero-section h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center">
       <div className="hero-pattern"></div>
       <div className="hero-content">
         <div style={{ marginTop: '2rem' }} className={`search-container ${isSticky ? 'sticky-search' : ''}`} id="searchBar">
