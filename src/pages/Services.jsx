@@ -40,21 +40,23 @@ const services = [
 ];
 
 const ServiceCard = ({ title, description, icon, image }) => (
-  <div className="service-outer group transition-shadow duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl">
+  <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl">
     <div className="relative z-1">
-      <div className="flex justify-center -mt-12 mb-4">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100">
-          <img src={icon} alt={title} className="w-10 h-10" />
-        </div>
-      </div>
-      <div className="service-inner group-hover:-translate-y-6 transition-transform duration-300 shadow-xl rounded-lg overflow-hidden bg-white">
-        <img src={image} alt={title} className="w-full h-36 object-cover" />
-      </div>
-      <h5 className="text-xl font-bold text-[#0C0C0C] mt-6 mb-2">{title}</h5>
-      <p className="text-[#0C0C0C] mb-4">{description}</p>
+      <h5 className="text-xl text-center font-bold text-[#0C0C0C] mt-6 mb-2">{title}</h5>
+      <p className="text-[#0C0C0C] text-center mb-4">{description}</p>
       <div className="flex justify-center gap-6 text-sm text-[#00BBF0] font-semibold">
         <a href="#" className="hover:underline">Newest</a>
         <a href="#" className="hover:underline">Bestsellers</a>
+      </div>
+      <div className="service-content group-hover:-translate-y-4 transition-transform duration-300">
+        <div className="flex justify-center mt-12 mb-4">
+          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100">
+            <img src={icon} alt={title} className="w-10 h-10" />
+          </div>
+        </div>
+        <div className="shadow-xl rounded-lg overflow-hidden bg-white">
+          <img src={image} alt={title} className="w-full h-36 object-cover" />
+        </div>
       </div>
     </div>
   </div>
@@ -96,11 +98,8 @@ const Services = () => {
         .service-outer:hover {
           box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
         }
-        .service-inner {
-          transition: transform 0.3s cubic-bezier(.4,2.3,.3,1);
-        }
-        .group:hover .service-inner {
-          transform: translateY(-1.5rem);
+        .service-content {
+          transition: transform 0.3s ease;
         }
       `}</style>
     </section>

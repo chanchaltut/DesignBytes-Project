@@ -166,8 +166,8 @@
 }
 
 .filter-tag {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #334155;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
   padding: 0.4rem 1rem;
   border-radius: 50px;
   font-size: 0.85rem;
