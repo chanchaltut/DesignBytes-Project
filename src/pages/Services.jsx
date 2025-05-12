@@ -40,8 +40,8 @@ const services = [
 ];
 
 const ServiceCard = ({ title, description, icon, image }) => (
-  <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl">
-    <div className="relative z-1">
+  <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl relative z-0">
+    <div className="relative">
       <h5 className="text-xl text-center font-bold text-[#0C0C0C] mt-6 mb-2">{title}</h5>
       <p className="text-[#0C0C0C] text-center mb-4">{description}</p>
       <div className="flex justify-center gap-6 text-sm text-[#00BBF0] font-semibold">
@@ -49,12 +49,12 @@ const ServiceCard = ({ title, description, icon, image }) => (
         <a href="#" className="hover:underline">Bestsellers</a>
       </div>
       <div className="service-content group-hover:-translate-y-4 transition-transform duration-300">
-        <div className="flex justify-center mt-12 mb-4">
+        <div className="flex justify-center mt-12 mb-4 relative z-20">
           <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100">
             <img src={icon} alt={title} className="w-10 h-10" />
           </div>
         </div>
-        <div className="shadow-xl rounded-lg overflow-hidden bg-white">
+        <div className="mt-[-2.5rem] shadow-xl rounded-lg overflow-hidden bg-white relative z-10">
           <img src={image} alt={title} className="w-full h-36 object-cover" />
         </div>
       </div>
@@ -66,7 +66,7 @@ const Services = () => {
   const [showAll, setShowAll] = useState(false);
 
   return (
-    <section id="services" className="py-20 bg-[#f4f6fa]">
+    <section id="services" className="py-20 bg-[#f4f6fa] relative z-0">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-[2rem] font-bold text-dark">
