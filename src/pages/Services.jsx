@@ -63,7 +63,71 @@ const ServiceCard = ({ title, description, icon, image }) => (
 );
 
 const Services = () => {
-  const [showAll, setShowAll] = useState(false);
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(services.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const getCurrentPageItems = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return services.slice(startIndex, endIndex);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPaginationButtons = () => {
+    const buttons = [];
+
+    // Previous button
+    buttons.push(
+      <button
+        key="prev"
+        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+        disabled={currentPage === 1}
+        className={`px-4 py-2 rounded-md ${currentPage === 1
+          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+          : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
+          }`}
+      >
+        Previous
+      </button>
+    );
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`px-4 py-2 rounded-md mx-1 ${currentPage === i
+            ? 'bg-[#00BBF0] text-white'
+            : 'bg-white text-[#0C0C0C] hover:bg-gray-100'
+            }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    // Next button
+    buttons.push(
+      <button
+        key="next"
+        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+        disabled={currentPage === totalPages}
+        className={`px-4 py-2 rounded-md ${currentPage === totalPages
+          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+          : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
+          }`}
+      >
+        Next
+      </button>
+    );
+
+    return buttons;
+  };
 
   return (
     <section id="services" className="py-20 bg-[#f4f6fa] relative z-0">
@@ -78,20 +142,13 @@ const Services = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {(showAll ? services : services.slice(0, 3)).map((service, idx) => (
+          {getCurrentPageItems().map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
         </div>
-        {!showAll && (
-          <div className="w-full flex justify-center mt-8">
-            <button
-              onClick={() => setShowAll(true)}
-              className="inline-block bg-[#00BBF0] text-white px-8 py-3 text-lg hover:bg-[#009ec3] transition-all shadow-md"
-            >
-              View More
-            </button>
-          </div>
-        )}
+        <div className="flex justify-center items-center gap-2 mt-12">
+          {renderPaginationButtons()}
+        </div>
       </div>
       {/* Custom styles for hover effects */}
       <style jsx>{`

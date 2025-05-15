@@ -18,21 +18,21 @@ const Hero = () => {
 
   return (
     <section ref={heroRef} className="hero-section h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center">
-      <div
-        className={`hero-content${isSticky ? ' sticky-hero-content' : ''}`}
-        style={{
-          marginTop: isSticky ? 0 : '2rem',
-          position: isSticky ? 'fixed' : 'relative',
-          top: isSticky ? 0 : 'auto',
-          left: 0,
-          right: 0,
-          zIndex: isSticky ? 20 : 'auto',
-          width: '100%',
-          transition: 'all 0.3s ease-in-out',
-          background: 'none', // always transparent
-        }}
-      >
-        <div className="search-container" id="searchBar">
+      <div className="hero-content">
+        <div
+          className={`search-container${isSticky ? ' sticky-search' : ''}`}
+          id="searchBar"
+          style={{
+            position: isSticky ? 'fixed' : 'relative',
+            top: isSticky ? 0 : 'auto',
+            left: 0,
+            right: 0,
+            zIndex: isSticky ? 20 : 'auto',
+            width: '100%',
+            transition: 'all 0.3s ease-in-out',
+            background: 'none',
+          }}
+        >
           <select className="category-dropdown">
             <option value="" defaultValue>Category</option>
             <option value="restaurants">Restaurants</option>
@@ -60,20 +60,19 @@ const Hero = () => {
           <button className="filter-tag">Finance</button>
         </div>
       </div>
-      {/* Custom styles for sticky hero-content */}
+      {/* Custom styles for sticky search container */}
       <style jsx>{`
         .hero-content {
           max-width: 800px;
           margin: 2rem auto 0 auto;
           transition: all 0.3s ease-in-out;
         }
-        .sticky-hero-content {
+        .sticky-search {
           position: fixed !important;
           top: 0 !important;
           left: 0;
           right: 0;
           z-index: 20;
-          margin-top: 0 !important;
           width: 100vw;
           background: none !important;
           border-radius: 0;

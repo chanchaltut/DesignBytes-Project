@@ -17,7 +17,7 @@ const Navbar = () => {
       const heroSection = document.querySelector('.hero-section');
       if (heroSection) {
         const heroHeight = heroSection.offsetHeight;
-        setIsVisible(window.scrollY <= heroHeight * 0.7);
+        setIsVisible(window.scrollY <= heroHeight * 1);
       }
     };
 
