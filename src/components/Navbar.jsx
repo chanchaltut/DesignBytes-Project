@@ -1,120 +1,120 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
 
   const navLinks = [
-  { name: "HOME", href: "/" },
-  { name: "ABOUT", href: "/about" },
-  { name: "SERVICES", href: "/services" },
-  { name: "WHY US", href: "/whyus" }, // match Route path casing
-  { name: "TEAM", href: "/team" },
-];
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Only apply hide-on-scroll for desktop (md and up)
-      if (window.innerWidth >= 768) {
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-          const heroHeight = heroSection.offsetHeight;
-          setIsVisible(window.scrollY <= heroHeight * 1);
-        }
-      } else {
-        // Always show navbar on mobile
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
-    handleScroll(); // initialize
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
+    { name: "HOME", href: "/" },
+    { name: "ABOUT", href: "/about" },
+    { name: "SERVICES", href: "/services" },
+    { name: "WHY US", href: "/whyus" },
+    { name: "TEAM", href: "/team" },
+  ];
 
   return (
-    <nav className={`bg-white shadow-md fixed w-full z-50 px-[1.5rem] transition-all duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      <div className="flex items-center justify-between h-[4rem]">
-        {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <img
-            src="/images/DBlogo.png"
-            alt="DesignBytes Logo"
-            className="h-[3.25rem] w-auto"
-          />
-        </Link>
+    <>
+      <nav className="bg-white shadow-md fixed w-full z-50 px-[1.5rem]">
+        <div className="flex items-center justify-between h-[4rem]">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img
+              src="/images/DBlogo.png"
+              alt="DesignBytes Logo"
+              className="h-[3.25rem] w-auto"
+            />
+          </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className="text-[1rem] px-[20px] py-[5px] text-[#007bff] hover:text-[#00D4FF] transition-colors uppercase tracking-wide"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <div className="flex items-center">
-            <Link
-              to="/"
-              className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] px-6 py-2 hover:bg-opacity-90 transition-all"
-            >
-              <i className="fas fa-user text-sm"></i>
-              <span className="font-normal">LOGIN</span>
-            </Link>
-            <button className="text-gray-600 hover:text-[#00D4FF] transition-colors">
-              <i className="fas fa-search text-lg"></i>
-            </button>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-[1rem] px-[20px] py-[5px] text-[#007bff] hover:text-[#00D4FF] transition-colors uppercase tracking-wide"
+              >
+                {link.name}
+              </Link>
+            ))}
+            <div className="flex items-center">
+              <Link
+                to="/"
+                className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] px-6 py-2 hover:bg-opacity-90 transition-all"
+              >
+                <i className="fas fa-user text-sm"></i>
+                <span className="font-normal">LOGIN</span>
+              </Link>
+              <button className="text-gray-600 hover:text-[#00D4FF] transition-colors">
+                <i className="fas fa-search text-lg"></i>
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-gray-600 hover:text-[#00D4FF] transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <i className={`fas ${isOpen ? "fa-times" : "fa-bars"} text-xl`}></i>
-        </button>
-      </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden w-6 h-6 relative focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div className="absolute inset-0 flex flex-col justify-center items-center">
+              <span
+                className={`block w-6 h-[2px] bg-[#007bff] transform transition-all duration-300 ease-in-out origin-center
+                  ${isOpen ? 'rotate-45 translate-y-[1px]' : '-translate-y-[6px]'}`}
+              ></span>
+              <span
+                className={`block w-6 h-[2px] bg-[#007bff] transition-all duration-300 ease-in-out
+                  ${isOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`}
+              ></span>
+              <span
+                className={`block w-6 h-[2px] bg-[#007bff] transform transition-all duration-300 ease-in-out origin-center
+                  ${isOpen ? '-rotate-45 -translate-y-[1px]' : 'translate-y-[6px]'}`}
+              ></span>
+            </div>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+        onClick={() => setIsOpen(false)}
+      />
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden py-4">
+      <div
+        className={`fixed top-0 left-0 h-full w-[60vw] bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+      >
+        <div className="pt-20 px-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.href}
-              className="block py-2 text-base font-normal text-gray-600 hover:text-[#00D4FF] transition-colors"
+              className="block py-3 text-base font-normal text-gray-600 hover:text-[#00D4FF] transition-colors border-b border-gray-100"
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <div className="flex flex-col space-y-4 pt-4">
+          <div className="flex flex-col space-y-4 pt-6">
             <Link
               to="/"
-              className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-2 hover:bg-opacity-90 transition-all"
+              className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-3 hover:bg-opacity-90 transition-all rounded-md"
               onClick={() => setIsOpen(false)}
             >
               <i className="fas fa-user text-sm"></i>
               <span className="font-normal">LOGIN</span>
             </Link>
             <button
-              className="text-gray-600 hover:text-[#00D4FF] transition-colors"
+              className="text-gray-600 hover:text-[#00D4FF] transition-colors py-3"
               onClick={() => setIsOpen(false)}
             >
               <i className="fas fa-search text-lg"></i>
             </button>
           </div>
         </div>
-      )}
-    </nav>
+      </div>
+    </>
   );
 };
 

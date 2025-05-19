@@ -52,7 +52,7 @@ const Footer = () => (
         {/* Info Section */}
         <div>
           <h4 className={columnTitleClass}>Info</h4>
-          <p className="text-[#ffffff] text-[1rem] w-[16rem]">
+          <p className="text-[#ffffff] text-[1rem] w-[14rem]">
             necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
           </p>
         </div>
