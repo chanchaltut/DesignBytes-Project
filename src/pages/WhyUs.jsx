@@ -1,57 +1,59 @@
-import { FaUserCog, FaKey } from 'react-icons/fa';
+import React from "react";
+import { FaPiggyBank, FaChartLine, FaSmile, FaHeadset } from "react-icons/fa";
 
-const whyUsData = [
+const features = [
   {
-    image: "/images/w1.png",
-    title: "Expert Management",
-    description:
-      "Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil. Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus",
-  },
-  {
-    image: "/images/w2.png",
+    icon: <FaPiggyBank className="text-4xl text-blue-600" />,
     title: "Secure Investment",
     description:
-      "Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil. Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus",
+      "Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores.",
   },
   {
-    image: "/images/w3.png",
+    icon: <FaChartLine className="text-4xl text-blue-600" />,
     title: "Instant Trading",
     description:
-      "Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil. Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus",
+      "Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus.",
   },
   {
-    image: "/images/w4.png",
+    icon: <FaSmile className="text-4xl text-blue-600" />,
     title: "Happy Customers",
     description:
-      "Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil. Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus",
+      "Voluptate ducimus officia id, aspernatur nihil. Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae.",
+  },
+  {
+    icon: <FaHeadset className="text-4xl text-blue-600" />,
+    title: "24/7 Support",
+    description:
+      "Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? Reiciendis possimus animi autem natus.",
   },
 ];
 
-const WhyUsCard = ({ image, title, description }) => (
-  <div className="flex flex-col items-center text-center px-4 py-8">
-    <div className="flex items-center justify-center w-32 h-32 md:w-36 md:h-36 border-4 border-[#00204a] rounded-full mb-6 bg-white">
-      <img src={image} alt={title} className="w-16 h-16 md:w-20 md:h-20 object-contain" />
-    </div>
-    <h3 className="text-xl md:text-2xl font-bold text-[#1B0E41] mb-4">{title}</h3>
-    <p className="text-[#1B0E41] text-base md:text-lg font-normal leading-relaxed">
-      {description}
-    </p>
-  </div>
-);
+const WhyChooseUs = () => {
+  return (
+    <section className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+       <h2 className="text-[2rem] font-bold text-dark  text-center pb-10">
+            <span className="text-[#0C0C0C]">Why Choose </span>{" "}
+            <span className="text-[#00BBF0]">Us</span>
+          </h2>
 
-const WhyUs = () => (
-  <section id="why-us" className="py-16 bg-white">
-    <div className="container">
-      <h2 className="section-title text-center mb-12 text-[2rem] md:text-4xl font-bold">
-        Why Choose <span className="text-[#00D4FF]">Us</span>
-      </h2>
-      <div className="flex flex-col items-center gap-8">
-        {whyUsData.map((item, idx) => (
-          <WhyUsCard key={idx} {...item} />
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center text-center p-6 border rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-300"
+            >
+              <div className="mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 text-sm">{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-export default WhyUs;
+export default WhyChooseUs;
