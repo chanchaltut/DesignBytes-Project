@@ -8,7 +8,6 @@ const Hero = () => {
     const handleScroll = () => {
       if (heroRef.current) {
         const rect = heroRef.current.getBoundingClientRect();
-        // Sticky only when the bottom of hero section is at or above the top of viewport
         setIsSticky(rect.bottom <= 0);
       }
     };
@@ -18,7 +17,8 @@ const Hero = () => {
 
   return (
     <section ref={heroRef} className="hero-section h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center">
-      <div className="hero-content">
+      {/* Desktop & non-mobile search-container and filter-tags */}
+      <div className="hero-content hidden md:block">
         <div
           className={`search-container${isSticky ? ' sticky-search' : ''}`}
           id="searchBar"
@@ -50,7 +50,6 @@ const Hero = () => {
             <i className="fas fa-search search-icon"></i>
           </button>
         </div>
-
         <div className="filter-tags">
           <button className="filter-tag active">All</button>
           <button className="filter-tag">Restaurants</button>
@@ -86,6 +85,9 @@ const Hero = () => {
           to {
             transform: translateY(0);
           }
+        }
+        @media (max-width: 767px) {
+          .hero-content { display: none; }
         }
       `}</style>
     </section>

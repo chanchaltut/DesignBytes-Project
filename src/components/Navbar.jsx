@@ -14,15 +14,26 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.querySelector('.hero-section');
-      if (heroSection) {
-        const heroHeight = heroSection.offsetHeight;
-        setIsVisible(window.scrollY <= heroHeight * 1);
+      // Only apply hide-on-scroll for desktop (md and up)
+      if (window.innerWidth >= 768) {
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+          const heroHeight = heroSection.offsetHeight;
+          setIsVisible(window.scrollY <= heroHeight * 1);
+        }
+      } else {
+        // Always show navbar on mobile
+        setIsVisible(true);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    handleScroll(); // initialize
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   return (
