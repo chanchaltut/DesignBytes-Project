@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setShowSearch(scrollPosition >= windowHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "HOME", href: "/" },
@@ -25,6 +37,20 @@ const Navbar = () => {
             />
           </Link>
 
+          {/* Search Section - Only visible after scrolling */}
+          {showSearch && (
+            <div className="hidden md:flex items-center flex-1 max-w-xl mx-8">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder="Search themes, templates, and more..."
+                  className="w-full bg-gray-50 border border-gray-200 rounded-full py-2 px-6 pl-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#00D4FF] focus:border-transparent transition-all duration-300"
+                />
+                <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+              </div>
+            </div>
+          )}
+
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center">
             {navLinks.map((link) => (
@@ -38,15 +64,12 @@ const Navbar = () => {
             ))}
             <div className="flex items-center">
               <Link
-                to="/"
+                to="/login"
                 className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] px-6 py-2 hover:bg-opacity-90 transition-all"
               >
                 <i className="fas fa-user text-sm"></i>
                 <span className="font-normal">LOGIN</span>
               </Link>
-              <button className="text-gray-600 hover:text-[#00D4FF] transition-colors">
-                <i className="fas fa-search text-lg"></i>
-              </button>
             </div>
           </div>
 
@@ -86,6 +109,16 @@ const Navbar = () => {
           }`}
       >
         <div className="pt-20 px-6">
+          {/* Mobile Search */}
+          <div className="relative mb-6">
+            <input
+              type="text"
+              placeholder="Search themes, templates, and more..."
+              className="w-full bg-gray-50 border border-gray-200 rounded-full py-2 px-6 pl-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#00D4FF] focus:border-transparent"
+            />
+            <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -98,19 +131,13 @@ const Navbar = () => {
           ))}
           <div className="flex flex-col space-y-4 pt-6">
             <Link
-              to="/"
+              to="/login"
               className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-3 hover:bg-opacity-90 transition-all rounded-md"
               onClick={() => setIsOpen(false)}
             >
               <i className="fas fa-user text-sm"></i>
               <span className="font-normal">LOGIN</span>
             </Link>
-            <button
-              className="text-gray-600 hover:text-[#00D4FF] transition-colors py-3"
-              onClick={() => setIsOpen(false)}
-            >
-              <i className="fas fa-search text-lg"></i>
-            </button>
           </div>
         </div>
       </div>

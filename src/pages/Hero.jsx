@@ -72,6 +72,43 @@ const Hero = () => {
       ]
     },
     {
+      title: "Trending Now",
+      subtitle: "What's hot in the marketplace",
+      type: "scroll",
+      items: [
+        {
+          title: "Modern Portfolio",
+          image: "/images/sb6.png",
+          price: "$59",
+          rating: 4.8
+        },
+        {
+          title: "Business Theme",
+          image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500",
+          price: "$49",
+          rating: 4.9
+        },
+        {
+          title: "Creative Agency",
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500",
+          price: "$69",
+          rating: 4.7
+        },
+        {
+          title: "Startup Template",
+          image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=500",
+          price: "$39",
+          rating: 4.6
+        },
+        {
+          title: "Corporate Theme",
+          image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500",
+          price: "$79",
+          rating: 4.9
+        }
+      ]
+    },
+    {
       title: "Special Offers",
       subtitle: "Limited time deals you don't want to miss",
       type: "featured",
@@ -122,43 +159,6 @@ const Hero = () => {
           image: "/images/blogging icon.svg",
           count: "950+",
           color: "#45B7D1"
-        }
-      ]
-    },
-    {
-      title: "Trending Now",
-      subtitle: "What's hot in the marketplace",
-      type: "scroll",
-      items: [
-        {
-          title: "Modern Portfolio",
-          image: "/images/sb6.png",
-          price: "$59",
-          rating: 4.8
-        },
-        {
-          title: "Business Theme",
-          image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500",
-          price: "$49",
-          rating: 4.9
-        },
-        {
-          title: "Creative Agency",
-          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500",
-          price: "$69",
-          rating: 4.7
-        },
-        {
-          title: "Startup Template",
-          image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=500",
-          price: "$39",
-          rating: 4.6
-        },
-        {
-          title: "Corporate Theme",
-          image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500",
-          price: "$79",
-          rating: 4.9
         }
       ]
     },
