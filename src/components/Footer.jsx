@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 const socialLinks = [
@@ -22,6 +22,7 @@ const iconClass = "text-white hover:text-[#00D4FF]";
 
 const Footer = () => {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -53,6 +54,11 @@ const Footer = () => {
       confirmButtonColor: '#00D4FF',
     });
     setEmail('');
+  };
+
+  const handleFooterNav = (href) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => navigate(href), 350); // allow scroll animation
   };
 
   return (
@@ -99,9 +105,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {navLinks.map(({ name, href }) => (
                 <li key={name}>
-                  <Link to={href} className={linkClass}>
+                  <button
+                    type="button"
+                    className={linkClass + " bg-transparent border-0 outline-none cursor-pointer"}
+                    onClick={() => handleFooterNav(href)}
+                  >
                     {name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>

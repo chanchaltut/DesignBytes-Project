@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+const Doodles = () => (
+    <>
+        {/* Top left doodle */}
+        <svg className="absolute top-0 left-0 w-32 h-32 md:w-48 md:h-48 opacity-20 -z-10" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,60 Q80,20 130,40 Q180,60 150,120 Q120,180 60,160 Q10,140 50,60 Z" fill="#00BBF0" />
+        </svg>
+        {/* Bottom right doodle */}
+        <svg className="absolute bottom-0 right-0 w-40 h-40 md:w-64 md:h-64 opacity-20 -z-10" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="#1B0E41" />
+            <ellipse cx="100" cy="100" rx="60" ry="30" fill="#00BBF0" opacity="0.5" />
+        </svg>
+    </>
+);
+
 const Login = () => {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
@@ -21,86 +35,99 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#00204a] via-[#00D4FF] to-[#1B0E41] relative overflow-hidden">
-            {/* Animated floating shapes */}
-            <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#00D4FF]/20 rounded-full blur-3xl animate-float-slow z-0"></div>
-            <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#00204a]/30 rounded-full blur-3xl animate-float-fast z-0"></div>
-            {/* Glassmorphism Card */}
-            <div className="relative z-10 w-full max-w-md p-10 rounded-3xl shadow-2xl backdrop-blur-2xl bg-white/30 border border-white/20 animate-fade-in">
-                <div className="flex flex-col items-center mb-8">
-                    <div className="bg-white p-2 rounded-full shadow-lg mb-4">
-                        <img src="/images/DBlogo.png" alt="DesignBytes Logo" className="h-16 drop-shadow-lg" />
-                    </div>
-                    <h1 className="text-4xl font-extrabold text-[#00204a] mb-2 tracking-tight">Sign in</h1>
-                    <p className="text-[#1B0E41] text-opacity-80 mb-2 text-base">to access DesignBytes</p>
+        <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-[#e0e7ff] via-[#f0f4ff] to-[#c7d2fe]">
+            <Doodles />
+            <div className="w-full max-w-md">
+                {/* Logo and Title */}
+                <div className="text-center mb-8">
+                    <img src="/images/DBlogo.png" alt="DesignBytes Logo" className="h-16 mx-auto mb-6" />
                 </div>
-                <form className="space-y-7" onSubmit={handleSubmit}>
-                    <div className="flex flex-col gap-2">
-                        <label htmlFor="user" className="text-[#00204a] font-semibold text-base">Email or Username</label>
-                        <div className="flex items-center bg-white/60 rounded-xl overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-[#00D4FF] transition-all">
-                            <span className="flex items-center justify-center px-4 h-full text-lg text-[#00D4FF]"><i className="fas fa-user"></i></span>
-                            <input
-                                id="user"
-                                type="text"
-                                placeholder="Enter your email or username"
-                                className="flex-1 px-4 py-3 bg-transparent outline-none text-[#00204a] placeholder-[#00204a]/60 text-base"
-                                autoComplete="username"
-                                required
-                                value={user}
-                                onChange={e => setUser(e.target.value)}
-                            />
+
+                {/* Glassmorphism Login Form */}
+                <div className="backdrop-blur-xl bg-white/40 border border-white/30 shadow-2xl rounded-2xl p-8 relative overflow-hidden">
+                    <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-[#00BBF0]/30 to-[#1B0E41]/20 rounded-full blur-2xl z-0"></div>
+                    <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-tr from-[#1B0E41]/20 to-[#00BBF0]/30 rounded-full blur-2xl z-0"></div>
+                    <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="user" className="block text-sm font-medium text-gray-700 mb-1">
+                                Email or Username
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i className="fas fa-user text-[#00BBF0]"></i>
+                                </div>
+                                <input
+                                    id="user"
+                                    type="text"
+                                    placeholder="Enter your email or username"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#00BBF0] focus:border-transparent transition-all bg-white/70 text-gray-900 placeholder-gray-400 backdrop-blur-sm"
+                                    value={user}
+                                    onChange={e => setUser(e.target.value)}
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <label htmlFor="password" className="text-[#00204a] font-semibold text-base">Password</label>
-                        <div className="flex items-center bg-white/60 rounded-xl overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-[#00D4FF] transition-all">
-                            <span className="flex items-center justify-center px-4 h-full text-lg text-[#00D4FF]"><i className="fas fa-lock"></i></span>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                className="flex-1 px-4 py-3 bg-transparent outline-none text-[#00204a] placeholder-[#00204a]/60 text-base"
-                                autoComplete="current-password"
-                                required
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
+
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                                Password
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i className="fas fa-lock text-[#00BBF0]"></i>
+                                </div>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#00BBF0] focus:border-transparent transition-all bg-white/70 text-gray-900 placeholder-gray-400 backdrop-blur-sm"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
                         </div>
+
+                        {error && (
+                            <div className="text-red-500 text-sm text-center bg-red-50 p-3 rounded-lg">
+                                {error}
+                            </div>
+                        )}
+
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    id="remember"
+                                    type="checkbox"
+                                    className="h-4 w-4 text-[#00BBF0] focus:ring-[#00BBF0] border-gray-300 rounded"
+                                />
+                                <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
+                                    Remember me
+                                </label>
+                            </div>
+                            <Link to="#" className="text-sm text-[#00BBF0] hover:text-[#009ec3]">
+                                Forgot password?
+                            </Link>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full bg-[#00BBF0] text-white py-3 rounded-xl font-semibold shadow-md hover:bg-[#009ec3] transition-all duration-200"
+                        >
+                            Sign In
+                        </button>
+                    </form>
+
+                    <div className="mt-6 text-center relative z-10">
+                        <p className="text-gray-600">
+                            Don't have an account?{' '}
+                            <Link to="#" className="text-[#00BBF0] font-semibold hover:text-[#009ec3]">
+                                Sign up
+                            </Link>
+                        </p>
                     </div>
-                    {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-                    <div className="flex justify-end">
-                        <Link to="#" className="text-white text-sm hover:underline">Forgot password?</Link>
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#1B0E41] text-white font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 backdrop-blur-md"
-                    >
-                        Login
-                    </button>
-                </form>
-                <div className="text-center mt-8">
-                    <span className="text-[#00204a] text-base">Don't have an account? </span>
-                    <Link to="#" className="text-white font-semibold hover:underline">Sign up</Link>
                 </div>
             </div>
-            {/* Animations */}
-            <style>{`
-                @keyframes float-slow {
-                    0%, 100% { transform: translateY(0) scale(1); }
-                    50% { transform: translateY(-30px) scale(1.05); }
-                }
-                @keyframes float-fast {
-                    0%, 100% { transform: translateY(0) scale(1); }
-                    50% { transform: translateY(30px) scale(1.08); }
-                }
-                .animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
-                .animate-float-fast { animation: float-fast 5s ease-in-out infinite; }
-                @keyframes fade-in {
-                    from { opacity: 0; transform: translateY(40px) scale(0.98); }
-                    to { opacity: 1; transform: translateY(0) scale(1); }
-                }
-                .animate-fade-in { animation: fade-in 0.8s cubic-bezier(.4,2,.6,1) both; }
-            `}</style>
         </div>
     );
 };

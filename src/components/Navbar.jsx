@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +19,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "HOME", href: "/" },
-    { name: "ABOUT", href: "/about" },
-    { name: "SERVICES", href: "/services" },
-    { name: "WHY US", href: "/whyus" },
-    { name: "TEAM", href: "/team" },
+    { name: "HOME", href: "/", icon: "fas fa-home" },
+    { name: "ABOUT", href: "/about", icon: "fas fa-info-circle" },
+    { name: "SERVICES", href: "/services", icon: "fas fa-cogs" },
+    { name: "WHY US", href: "/whyus", icon: "fas fa-question-circle" },
+    { name: "TEAM", href: "/team", icon: "fas fa-users" },
   ];
 
   return (
@@ -57,7 +59,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-[1rem] px-[20px] py-[5px] text-[#007bff] hover:text-[#00D4FF] transition-colors uppercase tracking-wide"
+                className={`text-[1rem] px-[20px] py-[5px] uppercase tracking-wide transition-colors ${location.pathname.toLowerCase() === link.href ? 'text-[#00D4FF] font-bold bg-[#e6f7fd] rounded' : 'text-[#007bff] hover:text-[#00D4FF]'}`}
               >
                 {link.name}
               </Link>
@@ -108,7 +110,11 @@ const Navbar = () => {
         className={`fixed top-0 left-0 h-full w-[60vw] bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
-        <div className="pt-20 px-6">
+        <div className="pt-8 px-6 flex flex-col">
+          {/* Logo at the top */}
+          <div className="flex justify-center mb-8">
+            <img src="/images/DBlogo.png" alt="DesignBytes Logo" className="h-12 w-auto" />
+          </div>
           {/* Mobile Search */}
           <div className="relative mb-6">
             <input
@@ -118,17 +124,19 @@ const Navbar = () => {
             />
             <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
           </div>
-
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className="block py-3 text-base font-normal text-gray-600 hover:text-[#00D4FF] transition-colors border-b border-gray-100"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
+          <nav className="flex-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`flex items-center gap-3 p-3 text-base font-normal border-b border-gray-100 transition-colors ${location.pathname.toLowerCase() === link.href ? 'text-[#00D4FF] font-bold bg-[#e6f7fd]' : 'text-gray-600 hover:text-[#00D4FF]'}`}
+                onClick={() => setIsOpen(false)}
+              >
+                <i className={`${link.icon} text-lg`}></i>
+                {link.name}
+              </Link>
+            ))}
+          </nav>
           <div className="flex flex-col space-y-4 pt-6">
             <Link
               to="/login"

@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 
 const Hero = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const [displayText, setDisplayText] = useState('');
   const heroRef = useRef(null);
+  const welcomeText = "Welcome to DesignBytes - Where Creativity Meets Innovation";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +16,32 @@ const Hero = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    let timeout;
+
+    const animateText = () => {
+      if (currentIndex <= welcomeText.length) {
+        setDisplayText(welcomeText.slice(0, currentIndex));
+        currentIndex++;
+        timeout = setTimeout(animateText, 100);
+      } else {
+        // Reset animation after 3 seconds
+        setTimeout(() => {
+          currentIndex = 0;
+          setDisplayText('');
+          animateText();
+        }, 3000);
+      }
+    };
+
+    animateText();
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
+  }, []); // Empty dependency array ensures animation restarts on component mount
 
   const sections = [
     {
@@ -335,12 +363,12 @@ const Hero = () => {
 
       case "stats":
         return (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="group">
-                <div className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-2xl">
+              <div key={itemIndex} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1rem)] min-w-[280px]">
+                <div className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
                   <div className="absolute inset-0 bg-gradient-to-r from-[#00BBF0]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative">
+                  <div className="relative flex-grow">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -350,7 +378,7 @@ const Hero = () => {
                       {item.rating} ★
                     </div>
                   </div>
-                  <div className="p-4">
+                  <div className="p-4 flex-grow flex flex-col justify-between">
                     <h3 className="text-lg font-semibold group-hover:text-[#00BBF0] transition-colors duration-300">{item.title}</h3>
                     <div className="flex justify-between items-center mt-2">
                       <p className="text-[#00BBF0] font-bold">{item.price}</p>
@@ -406,8 +434,21 @@ const Hero = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Search */}
-      <section ref={heroRef} className="hero-section h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center relative">
+      <section ref={heroRef} className="hero-section h-[60vh] md:h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center relative">
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+
+        {/* Welcome Text */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 mt-[3rem] md:mt-[10rem]">
+          <div className="text-center px-4">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              {displayText}
+            </h1>
+            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto">
+              Discover premium templates and themes for your next project
+            </p>
+          </div>
+        </div>
+
         <div className="hero-content hidden md:block relative z-10">
           <div
             className={`search-container${isSticky ? ' sticky-search' : ''}`}
@@ -453,8 +494,16 @@ const Hero = () => {
 
       {/* Multiple Sections */}
       {sections.map((section, index) => (
-        <section key={index} className={`py-12 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-          <div className="container mx-auto px-4">
+        <section key={index} className={`py-12 relative ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} overflow-hidden`}>
+          <div
+            className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
+            style={{
+              backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
+              backgroundAttachment: 'fixed',
+              zIndex: 0
+            }}
+          ></div>
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
@@ -513,6 +562,18 @@ const Hero = () => {
         }
         .snap-center {
           scroll-snap-align: center;
+        }
+        /* Fixed background styles */
+        [style*="background-attachment: fixed"] {
+          transform: translateZ(0);
+          -webkit-transform: translateZ(0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        @supports (-webkit-touch-callout: none) {
+          [style*="background-attachment: fixed"] {
+            background-attachment: scroll !important;
+          }
         }
       `}</style>
     </div>
