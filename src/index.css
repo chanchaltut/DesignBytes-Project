@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700;900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700;900&display=swap'); 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
 @tailwind base;
@@ -41,6 +41,23 @@
   .section-subtitle {
     @apply text-lg text-gray-600 mb-12 max-w-2xl mx-auto text-center;
   }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(80%);
+  }
+  50% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(80%);
+  }
+}
+
+.animate-slide {
+  animation: slide 2s ease-in-out infinite;
+  width: 25%;
 }
 
 /* Hero Section Styles */

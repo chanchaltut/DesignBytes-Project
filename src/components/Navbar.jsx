@@ -41,7 +41,7 @@ const Navbar = () => {
 
           {/* Search Section - Only visible after scrolling */}
           {showSearch && (
-            <div className="hidden md:flex items-center flex-1 max-w-xl mx-8">
+            <div className="hidden min-[820px]:flex items-center flex-1 max-w-xl mx-8">
               <div className="relative w-full">
                 <input
                   type="text"
@@ -54,30 +54,44 @@ const Navbar = () => {
           )}
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden min-[820px]:flex items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                className={`text-[1rem] px-[20px] py-[5px] uppercase tracking-wide transition-colors ${location.pathname.toLowerCase() === link.href ? 'text-[#00D4FF] font-bold bg-[#e6f7fd] rounded' : 'text-[#007bff] hover:text-[#00D4FF]'}`}
+                className={`text-[1rem] px-[20px] py-[5px] uppercase tracking-wide transition-colors relative group 
+                  lg:text-[1rem] lg:px-[20px] lg:py-[5px]
+                  min-[820px]:text-[0.875rem] min-[820px]:px-[12px] min-[82px]:py-[4px]
+                  ${location.pathname.toLowerCase() === link.href
+                    ? 'text-[#00D4FF]'
+                    : 'text-[#007bff] hover:text-[#00D4FF]'
+                  }`}
               >
                 {link.name}
+                <span className={`absolute bottom-0 left-0 h-1 bg-[#00D4FF] rounded-full transform transition-all duration-300 ${location.pathname.toLowerCase() === link.href
+                  ? 'animate-slide'
+                  : 'scale-x-0 group-hover:scale-x-100'
+                  }`}></span>
               </Link>
             ))}
             <div className="flex items-center">
               <Link
                 to="/login"
-                className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] px-6 py-2 hover:bg-opacity-90 transition-all"
+                className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] 
+                  lg:px-6 lg:py-2
+                  min-[820px]:px-4 min-[82px]:py-1.5
+                  transition-all relative group"
               >
                 <i className="fas fa-user text-sm"></i>
-                <span className="font-normal">LOGIN</span>
+                <span className="font-normal lg:text-[1rem] min-[820px]:text-[0.875rem]">LOGIN</span>
+                <span className="absolute bottom-0 left-0 h-1 bg-[#00D4FF] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </Link>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden w-6 h-6 relative focus:outline-none"
+            className="min-[820px]:hidden w-6 h-6 relative focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
             <div className="absolute inset-0 flex flex-col justify-center items-center">
@@ -100,14 +114,14 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 min-[820px]:hidden z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setIsOpen(false)}
       />
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 h-full w-[60vw] bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 h-full w-[60vw] bg-white shadow-lg transform transition-transform duration-300 ease-in-out min-[820px]:hidden z-50 ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         <div className="pt-8 px-6 flex flex-col">
