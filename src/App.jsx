@@ -9,7 +9,8 @@ import Testimonials from "./pages/Testimonials";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
+import WordPressThemes from "./sections/WordPressThemes";
+import EcommerceTemplates from "./sections/EcommerceTemplates";
 function AppRoutes() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
@@ -21,6 +22,8 @@ function AppRoutes() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/section/wordpress-themes" element={<WordPressThemes />} />
+          <Route path = "/section/eCommerce-theme" element={<EcommerceTemplates/>}/>
           <Route path="/about" element={<About />} />
           <Route path="/WhyUs" element={<WhyUs />} />
           <Route path="/team" element={<Team />} />

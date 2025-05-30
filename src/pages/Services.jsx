@@ -1,4 +1,10 @@
 import { useState } from 'react';
+import WordPressThemes from '../sections/WordPressThemes';
+import EcommerceTemplates from '../sections/EcommerceTemplates';
+import SiteTemplates from '../sections/SiteTemplates';
+import MarketingTemplates from '../sections/MarketingTemplates';
+import CMSTemplates from '../sections/CMSTemplates';
+import Blogging from '../sections/Blogging';
 
 const services = [
   {
@@ -39,6 +45,15 @@ const services = [
   },
 ];
 
+const serviceComponents = {
+  'WordPress Themes': WordPressThemes,
+  'eCommerce Templates': EcommerceTemplates,
+  'Site Templates': SiteTemplates,
+  'Marketing Templates': MarketingTemplates,
+  'CMS Templates': CMSTemplates,
+  'Blogging': Blogging,
+};
+
 const ServiceCard = ({ title, description, icon, image }) => (
   <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl relative z-0">
     <div className="relative">
@@ -66,6 +81,7 @@ const Services = () => {
   const itemsPerPage = 3;
   const totalPages = Math.ceil(services.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeService, setActiveService] = useState(null);
 
   const getCurrentPageItems = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -80,47 +96,47 @@ const Services = () => {
   const renderPaginationButtons = () => {
     const buttons = [];
 
-    // Previous button
     buttons.push(
       <button
         key="prev"
         onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className={`px-4 py-2 rounded-md ${currentPage === 1
-          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-          : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
-          }`}
+        className={`px-4 py-2 rounded-md ${
+          currentPage === 1
+            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+            : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
+        }`}
       >
         Previous
       </button>
     );
 
-    // Page numbers
     for (let i = 1; i <= totalPages; i++) {
       buttons.push(
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`px-4 py-2 rounded-md mx-1 ${currentPage === i
-            ? 'bg-[#00BBF0] text-white'
-            : 'bg-white text-[#0C0C0C] hover:bg-gray-100'
-            }`}
+          className={`px-4 py-2 rounded-md mx-1 ${
+            currentPage === i
+              ? 'bg-[#00BBF0] text-white'
+              : 'bg-white text-[#0C0C0C] hover:bg-gray-100'
+          }`}
         >
           {i}
         </button>
       );
     }
 
-    // Next button
     buttons.push(
       <button
         key="next"
         onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 rounded-md ${currentPage === totalPages
-          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-          : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
-          }`}
+        className={`px-4 py-2 rounded-md ${
+          currentPage === totalPages
+            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+            : 'bg-[#00BBF0] text-white hover:bg-[#009ec3]'
+        }`}
       >
         Next
       </button>
@@ -129,31 +145,60 @@ const Services = () => {
     return buttons;
   };
 
+  const SelectedComponent = serviceComponents[activeService];
+
   return (
+    
+
     <section id="services" className="py-20 bg-[#f4f6fa] relative z-0">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-[2rem] font-bold text-dark">
-            <span className="text-[#0C0C0C]">Our</span>{' '}
-            <span className="text-[#00BBF0]">Services</span>
-          </h2>
-          <p className="text-[#0C0C0C] mx-auto max-w-xl">
-            Explore our wide range of professional templates and themes for every need.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {getCurrentPageItems().map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </div>
-        <div className="flex justify-center items-center gap-2 mt-12">
-          {renderPaginationButtons()}
-        </div>
+        {!activeService ? (
+          <>
+            <div className="text-center mb-16">
+              <h2 className="text-[2rem] font-bold text-dark">
+                <span className="text-[#0C0C0C]">Our</span>{' '}
+                <span className="text-[#00BBF0]">Services</span>
+              </h2>
+              <p className="text-[#0C0C0C] mx-auto max-w-xl">
+                Explore our wide range of professional templates and themes for every need.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {getCurrentPageItems().map((service) => (
+                <div
+                  key={service.title}
+                  onClick={() => setActiveService(service.title)}
+                  className="cursor-pointer"
+                >
+                  <ServiceCard {...service} />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center gap-2 mt-12">
+              {renderPaginationButtons()}
+            </div>
+          </>
+        ) : (
+          <div>
+            <button
+              className="mb-6 px-4 py-2 bg-[#00BBF0] text-white rounded-md hover:bg-[#009ec3]"
+              onClick={() => setActiveService(null)}
+            >
+              ← Back to Services
+            </button>
+            {SelectedComponent ? (
+              <SelectedComponent />
+            ) : (
+              <p className="text-center text-red-600">Component not found.</p>
+            )}
+          </div>
+        )}
       </div>
+
       {/* Custom styles for hover effects */}
       <style jsx>{`
         .service-outer:hover {
-          box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
         }
         .service-content {
           transition: transform 0.3s ease;
