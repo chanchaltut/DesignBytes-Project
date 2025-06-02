@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Avada Theme Sample</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: #f5f6fa;
+            color: #222;
+            user-select: none;
+        }
+
+        header {
+            background: #00D4FF;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav a {
+            color: #00D4FF;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #009ec3;
+        }
+
+        section {
+            padding: 2rem 0;
+        }
+
+        h1,
+        h2 {
+            font-weight: 700;
+        }
+
+        footer {
+            background: #00204a;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Avada</a>
+            <div>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Portfolio</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <h1>Welcome to Avada Theme</h1>
+        <p class="lead">A beautiful, modern sample theme for preview purposes.</p>
+    </header>
+    <section class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>Stunning Design</h2>
+                <p>This is a sample homepage section. Replace this with your real theme files for a full preview. All
+                    anti-copy protections are active, but your real theme will show here.</p>
+                <ul>
+                    <li>Modern responsive layout</li>
+                    <li>Bootstrap 5 styling</li>
+                    <li>Easy to customize</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=600" alt="Sample"
+                    class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <h2 class="mb-4">Our Portfolio</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" class="card-img-top"
+                        alt="Portfolio 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Project One</h5>
+                        <p class="card-text">A modern web project.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400" class="card-img-top"
+                        alt="Portfolio 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Two</h5>
+                        <p class="card-text">A creative portfolio site.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=400" class="card-img-top"
+                        alt="Portfolio 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Three</h5>
+                        <p class="card-text">A business landing page.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div>© 2024 Avada Theme Sample. All rights reserved.</div>
+    </footer>
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 123 || (e.ctrlKey && ['u', 'c', 's', 'a'].includes(e.key.toLowerCase())))
+                e.preventDefault();
+        });
+        document.body.style.userSelect = 'none';
+    </script>
+</body>
+
+</html>

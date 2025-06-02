@@ -9,6 +9,8 @@ import Testimonials from "./pages/Testimonials";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import WordpressTemplates from "./pages/WordpressTemplates";
+import ThemePreview from './pages/ThemePreview';
 
 function AppRoutes() {
   const location = useLocation();
@@ -27,6 +29,8 @@ function AppRoutes() {
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/wordpress-templates" element={<WordpressTemplates />} />
+          <Route path="/preview/:themeId" element={<ThemePreview />} />
         </Routes>
       </main>
       {!isLoginPage && !isDashboardPage && <Footer />}

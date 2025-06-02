@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const roleOptions = [
     'Frontend Developer',
@@ -223,7 +224,21 @@ const Dashboard = () => {
                                                     </button>
                                                     <button
                                                         className="text-red-500 font-semibold hover:underline text-xs"
-                                                        onClick={() => setTeam(team.filter(m => m.id !== member.id))}
+                                                        onClick={async () => {
+                                                            const result = await Swal.fire({
+                                                                title: 'Are you sure?',
+                                                                text: "You won't be able to revert this!",
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#00BBF0',
+                                                                cancelButtonColor: '#d33',
+                                                                confirmButtonText: 'Yes, delete it!'
+                                                            });
+                                                            if (result.isConfirmed) {
+                                                                setTeam(team.filter(m => m.id !== member.id));
+                                                                Swal.fire('Deleted!', 'The member has been deleted.', 'success');
+                                                            }
+                                                        }}
                                                     >
                                                         Delete
                                                     </button>

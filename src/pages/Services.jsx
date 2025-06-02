@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const services = [
   {
@@ -39,38 +40,50 @@ const services = [
   },
 ];
 
-const ServiceCard = ({ title, description, icon, image }) => (
-  <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl relative z-0">
-    <div className="relative">
-      <h5 className="text-xl text-center font-bold text-[#0C0C0C] mt-6 mb-2">{title}</h5>
-      <p className="text-[#0C0C0C] text-center mb-4">{description}</p>
-      <div className="flex justify-center gap-6 text-sm text-[#00BBF0] font-semibold">
-        <a href="#" className="hover:underline">Newest</a>
-        <a href="#" className="hover:underline">Bestsellers</a>
-      </div>
-      <div className="service-content group-hover:-translate-y-4 transition-transform duration-300">
-        <div className="flex justify-center mt-12 mb-4 relative z-20">
-          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100">
-            <img src={icon} alt={title} className="w-10 h-10" />
-          </div>
+const ServiceCard = ({ title, description, icon, image }) => {
+  const isWordPress = title === 'WordPress Themes';
+  const cardContent = (
+    <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl relative z-0">
+      <div className="relative">
+        <h5 className="text-xl text-center font-bold text-[#0C0C0C] mt-6 mb-2">{title}</h5>
+        <p className="text-[#0C0C0C] text-center mb-4">{description}</p>
+        <div className="flex justify-center gap-6 text-sm text-[#00BBF0] font-semibold">
+          <a href="#" className="hover:underline">Newest</a>
+          <a href="#" className="hover:underline">Bestsellers</a>
         </div>
-        <div className="mt-[-2.5rem] shadow-xl rounded-lg overflow-hidden bg-white relative z-10">
-          <img src={image} alt={title} className="w-full h-36 object-cover" />
+        <div className="service-content group-hover:-translate-y-4 transition-transform duration-300">
+          <div className="flex justify-center mt-12 mb-4 relative z-20">
+            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100">
+              <img src={icon} alt={title} className="w-10 h-10" />
+            </div>
+          </div>
+          <div className="mt-[-2.5rem] shadow-xl rounded-lg overflow-hidden bg-white relative z-10">
+            <img src={image} alt={title} className="w-full h-36 object-cover" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+  return isWordPress ? (
+    <Link to="/wordpress-templates">{cardContent}</Link>
+  ) : cardContent;
+};
 
 const Services = () => {
   const itemsPerPage = 3;
   const totalPages = Math.ceil(services.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const filteredServices = services.filter(service =>
+    service.title.toLowerCase().includes(search.toLowerCase()) ||
+    service.description.toLowerCase().includes(search.toLowerCase())
+  );
 
   const getCurrentPageItems = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return services.slice(startIndex, endIndex);
+    return filteredServices.slice(startIndex, endIndex);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -140,6 +153,16 @@ const Services = () => {
           <p className="text-[#0C0C0C] mx-auto max-w-xl">
             Explore our wide range of professional templates and themes for every need.
           </p>
+        </div>
+        {/* Search Bar */}
+        <div className="flex justify-center mb-8">
+          <input
+            type="text"
+            placeholder="Search services..."
+            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded focus:outline-none"
+            value={search}
+            onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
+          />
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {getCurrentPageItems().map((service) => (

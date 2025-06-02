@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [displayText, setDisplayText] = useState('');
+  const [search, setSearch] = useState("");
   const heroRef = useRef(null);
   const welcomeText = "Welcome to DesignBytes - Where Creativity Meets Innovation";
 
@@ -255,6 +257,12 @@ const Hero = () => {
     }
   ];
 
+  // Filter logic for all sections
+  const filterTheme = (theme) => {
+    const searchLower = search.toLowerCase();
+    return theme.title.toLowerCase().includes(searchLower);
+  };
+
   const renderSection = (section, index) => {
     switch (section.type) {
       case "grid":
@@ -313,24 +321,31 @@ const Hero = () => {
       case "categories":
         return (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {section.items.map((item, itemIndex) => (
-              <div
-                key={itemIndex}
-                className="group p-4 rounded-xl transition-all duration-300 hover:shadow-xl"
-                style={{ backgroundColor: `${item.color}15` }}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: item.color }}
-                  >
-                    <img src={item.image} alt={item.title} className="w-8 h-8" />
+            {section.items.map((item, itemIndex) => {
+              const isWordPress = item.title === 'WordPress';
+              const card = (
+                <div
+                  className="group p-4 rounded-xl transition-all duration-300 hover:shadow-xl"
+                  style={{ backgroundColor: `${item.color}15` }}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: item.color }}
+                    >
+                      <img src={item.image} alt={item.title} className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2" style={{ color: item.color }}>{item.title}</h3>
+                    <p className="text-gray-600">{item.count} Items</p>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: item.color }}>{item.title}</h3>
-                  <p className="text-gray-600">{item.count} Items</p>
                 </div>
-              </div>
-            ))}
+              );
+              return isWordPress ? (
+                <Link to="/wordpress-templates" key={itemIndex}>{card}</Link>
+              ) : (
+                <div key={itemIndex}>{card}</div>
+              );
+            })}
           </div>
         );
 
@@ -476,8 +491,11 @@ const Hero = () => {
               type="text"
               className="search-input"
               placeholder="Enter Keywords?"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }}
             />
-            <button className="search-btn">
+            <button className="search-btn" onClick={e => e.preventDefault()}>
               <i className="fas fa-search search-icon"></i>
             </button>
           </div>
@@ -493,26 +511,53 @@ const Hero = () => {
       </section>
 
       {/* Multiple Sections */}
-      {sections.map((section, index) => (
-        <section key={index} className={`py-12 relative ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} overflow-hidden`}>
-          <div
-            className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
-            style={{
-              backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
-              backgroundAttachment: 'fixed',
-              zIndex: 0
-            }}
-          ></div>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
+      {sections.map((section, index) => {
+        // Only filter for sections with items (not categories, etc.)
+        if (section.items) {
+          const filteredItems = section.items.filter(filterTheme);
+          if (filteredItems.length === 0) return null;
+          return (
+            <section key={index} className={`py-12 relative ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} overflow-hidden`}>
+              <div
+                className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
+                style={{
+                  backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
+                  backgroundAttachment: 'fixed',
+                  zIndex: 0
+                }}
+              ></div>
+              <div className="container mx-auto px-4 relative z-10">
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
+                  <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
+                </div>
+                {/* Render filtered items for this section */}
+                {renderSection({ ...section, items: filteredItems }, index)}
+              </div>
+            </section>
+          );
+        }
+        // For sections without items (like categories), render as is
+        return (
+          <section key={index} className={`py-12 relative ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} overflow-hidden`}>
+            <div
+              className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
+              style={{
+                backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
+                backgroundAttachment: 'fixed',
+                zIndex: 0
+              }}
+            ></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
+                <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
+              </div>
+              {renderSection(section, index)}
             </div>
-
-            {renderSection(section, index)}
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
 
       {/* Custom styles */}
       <style jsx>{`
