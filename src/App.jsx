@@ -1,5 +1,10 @@
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Hero from "./pages/Hero";
 import Services from "./pages/Services";
 import About from "./pages/About";
@@ -9,8 +14,8 @@ import Testimonials from "./pages/Testimonials";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import WordpressTemplates from "./pages/WordpressTemplates";
-import ThemePreview from './pages/ThemePreview';
+import WordpressTemplates from "./pages/templates/wordpressTemplate/WordpressTemplates";
+import ThemePreview from "./pages/ThemePreview";
 
 function AppRoutes() {
   const location = useLocation();
