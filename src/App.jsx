@@ -8,7 +8,7 @@ import {
 import Hero from "./pages/Hero";
 import Services from "./pages/Services";
 import About from "./pages/About";
-import WhyUs from "./pages/WhyUs";
+import Contact from "./pages/Contact";
 import Team from "./pages/Team";
 import Testimonials from "./pages/Testimonials";
 import Footer from "./components/Footer";
@@ -29,7 +29,7 @@ function AppRoutes() {
           <Route path="/" element={<Hero />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
-          <Route path="/WhyUs" element={<WhyUs />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/team" element={<Team />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/login" element={<Login />} />

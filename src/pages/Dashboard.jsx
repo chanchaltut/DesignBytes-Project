@@ -107,8 +107,26 @@ const Dashboard = () => {
         e.preventDefault();
         if (modalMode === 'add') {
             setTeam([...team, { ...form, id: Date.now() }]);
+            Swal.fire({
+                title: 'Success!',
+                text: 'New team member has been added.',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+                position: 'top-end',
+                toast: true
+            });
         } else if (modalMode === 'edit' && editMember) {
             setTeam(team.map(m => m.id === editMember.id ? { ...form, id: editMember.id } : m));
+            Swal.fire({
+                title: 'Success!',
+                text: 'Changes have been saved.',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+                position: 'top-end',
+                toast: true
+            });
         }
         closeModal();
     };

@@ -22,8 +22,8 @@ const Navbar = () => {
     { name: "HOME", href: "/", icon: "fas fa-home" },
     { name: "ABOUT", href: "/about", icon: "fas fa-info-circle" },
     { name: "SERVICES", href: "/services", icon: "fas fa-cogs" },
-    { name: "WHY US", href: "/whyus", icon: "fas fa-question-circle" },
     { name: "TEAM", href: "/team", icon: "fas fa-users" },
+    { name: "CONTACT US", href: "/contact", icon: "fas fa-envelope" },
   ];
 
   return (
@@ -80,10 +80,9 @@ const Navbar = () => {
                 className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] 
                   lg:px-6 lg:py-2
                   min-[820px]:px-4 min-[82px]:py-1.5
-                  transition-all relative group"
+                  transition-all relative group border border-[#007bff] rounded-lg hover:border-[#00D4FF]"
               >
-                <i className="fas fa-user text-sm"></i>
-                <span className="font-normal lg:text-[1rem] min-[820px]:text-[0.875rem]">LOGIN</span>
+                <span className="font-normal lg:text-[1rem] min-[820px]:text-[0.875rem]">Sign Up / Log In</span>
                 <span className="absolute bottom-0 left-0 h-1 bg-[#00D4FF] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </Link>
             </div>
@@ -151,14 +150,13 @@ const Navbar = () => {
               </Link>
             ))}
           </nav>
-          <div className="flex flex-col space-y-4 pt-6">
+          <div className="flex space-x-4">
             <Link
               to="/login"
-              className="flex items-center justify-center space-x-1 bg-[#00D4FF] text-white px-6 py-3 hover:bg-opacity-90 transition-all rounded-md"
+              className="flex items-center justify-center space-x-1 border border-[#00D4FF] text-[#00D4FF] px-6 py-3 hover:bg-[#00D4FF] hover:text-white transition-all rounded-md"
               onClick={() => setIsOpen(false)}
             >
-              <i className="fas fa-user text-sm"></i>
-              <span className="font-normal">LOGIN</span>
+              <span className="font-normal">Sign Up / Log In</span>
             </Link>
           </div>
         </div>
