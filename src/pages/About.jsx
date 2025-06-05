@@ -70,7 +70,7 @@ const About = () => {
           {/* Image */}
           <div className="md:w-1/2" data-aos="fade-right" data-aos-delay="300">
             <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+              src="https://images.unsplash.com/photo-1522071900081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               alt="Design Byte Team"
               className="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             />

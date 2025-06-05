@@ -37,14 +37,8 @@ const Hero = () => {
         setAnimatedIndices(prev => new Set(prev).add(currentIndex));
         currentIndex++;
         timeout = setTimeout(animateLetters, 80);
-      } else {
-        // Reset animation after 4 seconds
-        setTimeout(() => {
-          setAnimatedIndices(new Set());
-          currentIndex = 0;
-          animateLetters();
-        }, 4000);
       }
+      // Animation completes and stays - no reset/loop
     };
 
     // Start animation after a delay
@@ -478,7 +472,7 @@ const Hero = () => {
         {/* Welcome Text */}
         <div className="absolute inset-0 flex items-center justify-center z-10 mt-[3rem] md:mt-[10rem]">
           <div className="text-center px-4">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-delay="300">
+            <h1 className="text-xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-delay="300">
               {welcomeLines.map((line, lineIndex) => (
                 <div key={lineIndex} className="block">
                   {line.split('').map((char, charIndex) => {

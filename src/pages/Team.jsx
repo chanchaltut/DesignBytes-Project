@@ -100,7 +100,7 @@ const Team = () => {
         <div
           className="absolute inset-0 bg-fixed bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000")',
+            backgroundImage: 'url("https://images.unsplash.com/photo-1522071900081-009f0129c71c?q=80&w=1000")',
             backgroundAttachment: 'fixed'
           }}
         >
