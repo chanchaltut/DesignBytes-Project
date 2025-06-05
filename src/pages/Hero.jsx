@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const [displayText, setDisplayText] = useState('');
+  const [animatedIndices, setAnimatedIndices] = useState(new Set());
   const [search, setSearch] = useState("");
   const heroRef = useRef(null);
-  const welcomeText = "Welcome to DesignBytes - Where Creativity Meets Innovation";
+
+  // Multi-line welcome text
+  const welcomeLines = [
+    "Welcome to DesignBytes",
+    "Where Creativity Meets Innovation",
+    "Premium Templates & Themes"
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,27 +29,42 @@ const Hero = () => {
     let currentIndex = 0;
     let timeout;
 
-    const animateText = () => {
-      if (currentIndex <= welcomeText.length) {
-        setDisplayText(welcomeText.slice(0, currentIndex));
+    // Calculate total characters across all lines
+    const totalChars = welcomeLines.join('').length;
+
+    const animateLetters = () => {
+      if (currentIndex < totalChars) {
+        setAnimatedIndices(prev => new Set(prev).add(currentIndex));
         currentIndex++;
-        timeout = setTimeout(animateText, 100);
+        timeout = setTimeout(animateLetters, 80);
       } else {
-        // Reset animation after 3 seconds
+        // Reset animation after 4 seconds
         setTimeout(() => {
+          setAnimatedIndices(new Set());
           currentIndex = 0;
-          setDisplayText('');
-          animateText();
-        }, 3000);
+          animateLetters();
+        }, 4000);
       }
     };
 
-    animateText();
+    // Start animation after a delay
+    setTimeout(() => {
+      animateLetters();
+    }, 1000);
 
     return () => {
       if (timeout) clearTimeout(timeout);
     };
-  }, []); // Empty dependency array ensures animation restarts on component mount
+  }, []);
+
+  // Helper function to get character index across all lines
+  const getGlobalCharIndex = (lineIndex, charIndex) => {
+    let globalIndex = 0;
+    for (let i = 0; i < lineIndex; i++) {
+      globalIndex += welcomeLines[i].length;
+    }
+    return globalIndex + charIndex;
+  };
 
   const sections = [
     {
@@ -269,7 +290,7 @@ const Hero = () => {
         return (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="group">
+              <div key={itemIndex} className="group" data-aos="fade-up" data-aos-delay={itemIndex * 100}>
                 <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <img
@@ -294,7 +315,7 @@ const Hero = () => {
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="relative overflow-hidden rounded-xl shadow-xl group">
+              <div key={itemIndex} className="relative overflow-hidden rounded-xl shadow-xl group" data-aos="zoom-in" data-aos-delay={itemIndex * 200}>
                 <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10">
                   {item.badge}
                 </div>
@@ -327,6 +348,8 @@ const Hero = () => {
                 <div
                   className="group p-4 rounded-xl transition-all duration-300 hover:shadow-xl"
                   style={{ backgroundColor: `${item.color}15` }}
+                  data-aos="fade-up"
+                  data-aos-delay={itemIndex * 100}
                 >
                   <div className="flex flex-col items-center text-center">
                     <div
@@ -354,7 +377,7 @@ const Hero = () => {
           <div className="relative">
             <div className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x snap-mandatory">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="flex-none w-80 snap-center">
+                <div key={itemIndex} className="flex-none w-80 snap-center" data-aos="fade-right" data-aos-delay={itemIndex * 100}>
                   <div className="relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <img
@@ -380,7 +403,7 @@ const Hero = () => {
         return (
           <div className="flex flex-wrap justify-center gap-4">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1rem)] min-w-[280px]">
+              <div key={itemIndex} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1rem)] min-w-[280px]" data-aos="flip-left" data-aos-delay={itemIndex * 150}>
                 <div className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
                   <div className="absolute inset-0 bg-gradient-to-r from-[#00BBF0]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative flex-grow">
@@ -416,7 +439,7 @@ const Hero = () => {
         return (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="group">
+              <div key={itemIndex} className="group" data-aos="fade-up" data-aos-delay={itemIndex * 200}>
                 <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl">
                   <img
                     src={item.image}
@@ -449,16 +472,32 @@ const Hero = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Search */}
-      <section ref={heroRef} className="hero-section h-[60vh] md:h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center relative">
+      <section ref={heroRef} className="hero-section h-[60vh] md:h-[100vh] bg-[url('/images/tech-bg.jpg')] bg-cover bg-center relative" data-aos="fade">
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
         {/* Welcome Text */}
         <div className="absolute inset-0 flex items-center justify-center z-10 mt-[3rem] md:mt-[10rem]">
           <div className="text-center px-4">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              {displayText}
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-delay="300">
+              {welcomeLines.map((line, lineIndex) => (
+                <div key={lineIndex} className="block">
+                  {line.split('').map((char, charIndex) => {
+                    const globalIndex = getGlobalCharIndex(lineIndex, charIndex);
+                    const isVisible = animatedIndices.has(globalIndex);
+                    return (
+                      <span
+                        key={`${lineIndex}-${charIndex}`}
+                        className={`inline-block transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                        style={{ transitionDelay: '0ms' }}
+                      >
+                        {char === ' ' ? '\u00A0' : char}
+                      </span>
+                    );
+                  })}
+                </div>
+              ))}
             </h1>
-            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="500">
               Discover premium templates and themes for your next project
             </p>
           </div>
@@ -478,6 +517,8 @@ const Hero = () => {
               transition: 'all 0.3s ease-in-out',
               background: 'none',
             }}
+            data-aos="fade-up"
+            data-aos-delay="700"
           >
             <select className="category-dropdown">
               <option value="" defaultValue>Category</option>
@@ -499,7 +540,7 @@ const Hero = () => {
               <i className="fas fa-search search-icon"></i>
             </button>
           </div>
-          <div className="filter-tags">
+          <div className="filter-tags" data-aos="fade-up" data-aos-delay="900">
             <button className="filter-tag active">All</button>
             <button className="filter-tag">Restaurants</button>
             <button className="filter-tag">Retail</button>
@@ -522,41 +563,28 @@ const Hero = () => {
                 className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
                 style={{
                   backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
-                  backgroundAttachment: 'fixed',
-                  zIndex: 0
                 }}
               ></div>
-              <div className="container mx-auto px-4 relative z-10">
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
+
+              {/* Background decorative elements */}
+              <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className={`absolute top-20 ${index % 2 === 0 ? '-right-10' : '-left-10'} w-40 h-40 bg-[#00BBF0]/5 rounded-full float-animation`} data-aos="fade-right" data-aos-delay="200"></div>
+                <div className={`absolute bottom-20 ${index % 2 === 0 ? '-left-10' : '-right-10'} w-60 h-60 bg-[#1B0E41]/5 rounded-full float-animation-reverse`} data-aos="fade-left" data-aos-delay="400"></div>
+              </div>
+
+              <div className="max-w-6xl mx-auto px-4 relative z-10">
+                <div className="text-center mb-8" data-aos="fade-up" data-aos-delay="200">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1B0E41]">{section.title}</h2>
                   <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
                 </div>
-                {/* Render filtered items for this section */}
-                {renderSection({ ...section, items: filteredItems }, index)}
+                <div data-aos="fade-up" data-aos-delay="400">
+                  {renderSection(section, index)}
+                </div>
               </div>
             </section>
           );
         }
-        // For sections without items (like categories), render as is
-        return (
-          <section key={index} className={`py-12 relative ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} overflow-hidden`}>
-            <div
-              className="absolute inset-0 bg-fixed bg-cover bg-center opacity-5 pointer-events-none"
-              style={{
-                backgroundImage: `url(${index % 2 === 0 ? '/images/pattern-light.png' : '/images/pattern-dark.png'})`,
-                backgroundAttachment: 'fixed',
-                zIndex: 0
-              }}
-            ></div>
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-[#0C0C0C] mb-3 transform transition-all duration-500 hover:scale-105">{section.title}</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">{section.subtitle}</p>
-              </div>
-              {renderSection(section, index)}
-            </div>
-          </section>
-        );
+        return null;
       })}
 
       {/* Custom styles */}

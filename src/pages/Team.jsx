@@ -96,27 +96,31 @@ const Team = () => {
     <>
       {/* Hero Section */}
       <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-        {/* Background image with gradient overlay */}
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000"
-            alt="Background"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1B0E41] via-[#00BBF0]/80 to-[#1B0E41] opacity-90" />
+        {/* Background image with fixed parallax effect */}
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000")',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          {/* Subtle dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 px-4 max-w-3xl">
-          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair">
+        <div className="relative z-10 px-4 max-w-3xl" data-aos="fade-up" data-aos-delay="300">
+          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair" data-aos="fade-down" data-aos-delay="500">
             Meet Our Team
           </h1>
-          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5">
+          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5" data-aos="fade-up" data-aos-delay="700">
             Talented professionals dedicated to creating exceptional digital experiences
           </p>
           <a
             href="#team"
-            className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#1B0E41] transition px-6 py-3 text-lg rounded-lg hover:shadow-lg"
+            className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#1B0E41] transition px-6 py-3 text-lg rounded-lg hover:shadow-lg transform hover:scale-105"
+            data-aos="zoom-in"
+            data-aos-delay="900"
           >
             View Team
           </a>
@@ -126,12 +130,17 @@ const Team = () => {
       {/* Team Section */}
       <section id="team" className="py-16 bg-[#f8f8f9]">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#1B0E41]">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#1B0E41]" data-aos="fade-up" data-aos-delay="200">
             Our Expert Team
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-[#00BBF0]/10">
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-[#00BBF0]/10"
+                data-aos="fade-up"
+                data-aos-delay={400 + (index * 200)}
+              >
                 <div className="relative">
                   <img
                     src={member.image}
@@ -180,12 +189,12 @@ const Team = () => {
       {/* Contact Form Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-[#f8f8f9] rounded-2xl shadow-xl p-8 md:p-12 border border-[#00BBF0]/10">
-            <h2 className="text-3xl font-bold text-center mb-8 text-[#1B0E41]">
+          <div className="bg-[#f8f8f9] rounded-2xl shadow-xl p-8 md:p-12 border border-[#00BBF0]/10" data-aos="fade-up" data-aos-delay="300">
+            <h2 className="text-3xl font-bold text-center mb-8 text-[#1B0E41]" data-aos="fade-down" data-aos-delay="500">
               Get in Touch
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="700">
                 <div>
                   <label className="block text-[#1B0E41] mb-2">Name</label>
                   <input
@@ -209,7 +218,7 @@ const Team = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div data-aos="fade-up" data-aos-delay="900">
                 <label className="block text-[#1B0E41] mb-2">Subject</label>
                 <input
                   type="text"
@@ -220,7 +229,7 @@ const Team = () => {
                   placeholder="How can we help?"
                 />
               </div>
-              <div>
+              <div data-aos="fade-up" data-aos-delay="1100">
                 <label className="block text-[#1B0E41] mb-2">Message</label>
                 <textarea
                   name="message"
@@ -231,7 +240,7 @@ const Team = () => {
                   placeholder="Your message..."
                 ></textarea>
               </div>
-              <div className="text-center">
+              <div className="text-center" data-aos="zoom-in" data-aos-delay="1300">
                 <button
                   type="submit"
                   className="bg-[#00BBF0] hover:bg-[#009ec3] text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"

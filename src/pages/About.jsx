@@ -33,28 +33,32 @@ const About = () => {
   return (
     <>
       <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-        {/* Background image with gradient overlay */}
-        <div className="absolute inset-0 ">
-          <img
-            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000"
-            alt="Background"
-            className="w-full h-full object-cover "
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1B0E41] via-[#00BBF0]/80 to-[#1B0E41] opacity-90" />
+        {/* Background image with fixed parallax effect */}
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000")',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          {/* Subtle dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 px-4 max-w-3xl">
-          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair">
+        <div className="relative z-10 px-4 max-w-3xl" data-aos="fade-up" data-aos-delay="300">
+          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair" data-aos="fade-down" data-aos-delay="500">
             About Design Byte
           </h1>
-          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5">
+          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5" data-aos="fade-up" data-aos-delay="700">
             Crafting Digital Experiences — Free Templates, Premium Solutions,
             and Custom Web Development.
           </p>
           <a
             href="#about"
-            className="inline-block border border-white text-white hover:bg-white hover:text-gray-900 transition px-6 py-3 text-lg rounded"
+            className="inline-block border border-white text-white hover:bg-white hover:text-gray-900 transition px-6 py-3 text-lg rounded transform hover:scale-105"
+            data-aos="zoom-in"
+            data-aos-delay="900"
           >
             Explore Our Story
           </a>
@@ -64,7 +68,7 @@ const About = () => {
       <section id="about" className="bg-white py-16">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
           {/* Image */}
-          <div className="md:w-1/2">
+          <div className="md:w-1/2" data-aos="fade-right" data-aos-delay="300">
             <img
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               alt="Design Byte Team"
@@ -73,7 +77,7 @@ const About = () => {
           </div>
 
           {/* Text Content */}
-          <div className="md:w-1/2 pt-0">
+          <div className="md:w-1/2 pt-0" data-aos="fade-left" data-aos-delay="500">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
               <span className="border-b-4 border-[#00BBF0] pb-1">Who </span>
               <span>we are </span>
@@ -100,7 +104,7 @@ const About = () => {
             </p>
 
             {/* CEO Info */}
-            <div className="flex items-center mt-4 bg-white/50 backdrop-blur-sm p-4 rounded-lg border border-[#00BBF0]/20">
+            <div className="flex items-center mt-4 bg-white/50 backdrop-blur-sm p-4 rounded-lg border border-[#00BBF0]/20" data-aos="zoom-in" data-aos-delay="800">
               <img
                 src="https://randomuser.me/api/portraits/women/43.jpg"
                 alt="CEO"
@@ -118,7 +122,7 @@ const About = () => {
       {/* Why Choose Us Section */}
       <section className="py-16 bg-gradient-to-br from-white to-[#00BBF0]/5">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-[2rem] font-bold text-center pb-10">
+          <h2 className="text-[2rem] font-bold text-center pb-10" data-aos="fade-up" data-aos-delay="200">
             <span className="text-[#1B0E41]">Why Choose </span>
             <span className="text-[#00BBF0]">Us</span>
           </h2>
@@ -128,6 +132,8 @@ const About = () => {
               <div
                 key={index}
                 className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-300 border border-[#00BBF0]/10"
+                data-aos="fade-up"
+                data-aos-delay={400 + (index * 200)}
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-semibold text-[#1B0E41] mb-2">
@@ -143,19 +149,19 @@ const About = () => {
       <section className="py-10 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10">
+            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10" data-aos="flip-left" data-aos-delay="300">
               <h3 className="text-4xl font-bold text-[#00BBF0]">0+</h3>
               <p className="text-gray-600">Projects Completed</p>
             </div>
-            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10">
+            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10" data-aos="flip-left" data-aos-delay="500">
               <h3 className="text-4xl font-bold text-[#00BBF0]">0+</h3>
               <p className="text-gray-600">Happy Clients</p>
             </div>
-            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10">
+            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10" data-aos="flip-left" data-aos-delay="700">
               <h3 className="text-4xl font-bold text-[#00BBF0]">0+</h3>
               <p className="text-gray-600">Free Templates</p>
             </div>
-            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10">
+            <div className="p-6 rounded-lg bg-gradient-to-br from-white to-[#00BBF0]/5 border border-[#00BBF0]/10" data-aos="flip-left" data-aos-delay="900">
               <h3 className="text-4xl font-bold text-[#00BBF0]">0</h3>
               <p className="text-gray-600 pb-20">Years Experience</p>
             </div>
@@ -164,7 +170,7 @@ const About = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="relative py-20 text-white overflow-hidden min-h-[440px]">
+      {/* <section className="relative py-20 text-white overflow-hidden min-h-[440px]">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000"
@@ -196,7 +202,7 @@ const About = () => {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Popup Form */}
       {isFormOpen && (

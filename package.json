@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "dom": "^0.0.3",
     "framer-motion": "^12.16.0",
     "react": "^18.3.1",

@@ -42,7 +42,27 @@ const services = [
 ];
 
 const ServiceCard = ({ title, description, icon, image }) => {
-  const isWordPress = title === 'WordPress Themes';
+  const getServiceLink = (title) => {
+    switch (title) {
+      case 'WordPress Themes':
+        return '/wordpress-templates';
+      case 'eCommerce Templates':
+        return '/ecommerce-templates';
+      case 'Site Templates':
+        return '/site-templates';
+      case 'Marketing Templates':
+        return '/marketing-templates';
+      case 'CMS Templates':
+        return '/cms-templates';
+      case 'Blogging':
+        return '/blogging-templates';
+      default:
+        return null;
+    }
+  };
+
+  const serviceLink = getServiceLink(title);
+
   const cardContent = (
     <div className="service-outer group transition-all duration-300 rounded-xl bg-[#f8f8f9] p-6 md:p-8 cursor-pointer hover:shadow-2xl relative z-0">
       <div className="relative">
@@ -65,8 +85,9 @@ const ServiceCard = ({ title, description, icon, image }) => {
       </div>
     </div>
   );
-  return isWordPress ? (
-    <Link to="/wordpress-templates">{cardContent}</Link>
+
+  return serviceLink ? (
+    <Link to={serviceLink}>{cardContent}</Link>
   ) : cardContent;
 };
 
@@ -203,27 +224,33 @@ const Services = () => {
     <>
       {/* Hero Section */}
       <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-        {/* Background image with gradient overlay */}
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000"
-            alt="Background"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1B0E41] via-[#00BBF0]/80 to-[#1B0E41] opacity-90" />
+        {/* Background image with fixed parallax effect */}
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000")',
+            backgroundAttachment: 'fixed'
+          }}
+          data-aos="fade"
+          data-aos-duration="1500"
+        >
+          {/* Subtle dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 px-4 max-w-3xl">
-          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair">
+        <div className="relative z-10 px-4 max-w-3xl" data-aos="fade-up" data-aos-delay="300">
+          <h1 className="text-5xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-white pb-5 font-Playfair" data-aos="fade-down" data-aos-delay="500">
             Our Services
           </h1>
-          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5">
+          <p className="text-lg sm:text-xl md:text-xl mb-8 pb-5" data-aos="fade-up" data-aos-delay="700">
             Comprehensive web solutions tailored to your business needs
           </p>
           <a
             href="#services"
-            className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#1B0E41] transition px-6 py-3 text-lg rounded-lg hover:shadow-lg"
+            className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#1B0E41] transition px-6 py-3 text-lg rounded-lg hover:shadow-lg transform hover:scale-105"
+            data-aos="zoom-in"
+            data-aos-delay="900"
           >
             Explore Services
           </a>
@@ -231,31 +258,45 @@ const Services = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-16 bg-[#f8f8f9]">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#1B0E41]">
+      <section id="services" className="py-16 bg-[#f8f8f9] relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-20 -left-10 w-40 h-40 bg-[#00BBF0]/5 rounded-full" data-aos="fade-right" data-aos-delay="200"></div>
+          <div className="absolute bottom-20 -right-10 w-60 h-60 bg-[#1B0E41]/5 rounded-full" data-aos="fade-left" data-aos-delay="400"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#1B0E41]" data-aos="fade-up" data-aos-delay="200">
             What We Offer
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="400">
             {getCurrentPageItems().map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <div key={index} data-aos="zoom-in" data-aos-delay={600 + (index * 200)}>
+                <ServiceCard {...service} />
+              </div>
             ))}
           </div>
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-8 space-x-2" data-aos="fade-up" data-aos-delay="1000">
             {renderPaginationButtons()}
           </div>
         </div>
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-[#f8f8f9] rounded-2xl shadow-xl p-8 md:p-12 border border-[#00BBF0]/10">
-            <h2 className="text-3xl font-bold text-center mb-8 text-[#1B0E41]">
+      <section className="py-16 bg-white relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-1/3 -right-20 w-80 h-80 bg-[#00BBF0]/3 rounded-full" data-aos="fade-left" data-aos-delay="200"></div>
+          <div className="absolute bottom-1/4 -left-20 w-60 h-60 bg-[#1B0E41]/3 rounded-full" data-aos="fade-right" data-aos-delay="400"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 relative z-10">
+          <div className="bg-[#f8f8f9] rounded-2xl shadow-xl p-8 md:p-12 border border-[#00BBF0]/10" data-aos="fade-up" data-aos-delay="300">
+            <h2 className="text-3xl font-bold text-center mb-8 text-[#1B0E41]" data-aos="fade-up" data-aos-delay="500">
               Request a Service
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="700">
                 <div>
                   <label className="block text-[#1B0E41] mb-2">Name</label>
                   <input
@@ -279,7 +320,7 @@ const Services = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div data-aos="fade-up" data-aos-delay="900">
                 <label className="block text-[#1B0E41] mb-2">Service Required</label>
                 <select
                   name="service"
@@ -293,7 +334,7 @@ const Services = () => {
                   <option value="mobile-development">Mobile Development</option>
                 </select>
               </div>
-              <div>
+              <div data-aos="fade-up" data-aos-delay="1100">
                 <label className="block text-[#1B0E41] mb-2">Message</label>
                 <textarea
                   name="message"
@@ -304,7 +345,7 @@ const Services = () => {
                   placeholder="Tell us about your project..."
                 ></textarea>
               </div>
-              <div className="text-center">
+              <div className="text-center" data-aos="fade-up" data-aos-delay="1300">
                 <button
                   type="submit"
                   className="bg-[#00BBF0] hover:bg-[#009ec3] text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
