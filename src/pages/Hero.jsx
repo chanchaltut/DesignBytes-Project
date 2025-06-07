@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const [animatedIndices, setAnimatedIndices] = useState(new Set());
+  const [visibleChars, setVisibleChars] = useState(0);
   const [search, setSearch] = useState("");
   const heroRef = useRef(null);
 
@@ -26,28 +26,42 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    let currentIndex = 0;
-    let timeout;
+    // Reset animation
+    setVisibleChars(0);
 
     // Calculate total characters across all lines
     const totalChars = welcomeLines.join('').length;
 
-    const animateLetters = () => {
-      if (currentIndex < totalChars) {
-        setAnimatedIndices(prev => new Set(prev).add(currentIndex));
-        currentIndex++;
-        timeout = setTimeout(animateLetters, 80);
+    // Use requestAnimationFrame for smoother animation
+    let startTime = null;
+    const animationDuration = totalChars * 80; // 80ms per character
+    const initialDelay = 1000; // 1 second initial delay
+
+    const animate = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp + initialDelay;
+        requestAnimationFrame(animate);
+        return;
       }
-      // Animation completes and stays - no reset/loop
+
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / animationDuration, 1);
+      const newVisibleChars = Math.floor(progress * totalChars);
+
+      setVisibleChars(newVisibleChars);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        // Ensure all characters are visible at the end
+        setVisibleChars(totalChars);
+      }
     };
 
-    // Start animation after a delay
-    setTimeout(() => {
-      animateLetters();
-    }, 1000);
+    const animationId = requestAnimationFrame(animate);
 
     return () => {
-      if (timeout) clearTimeout(timeout);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 
@@ -477,11 +491,11 @@ const Hero = () => {
                 <div key={lineIndex} className="block">
                   {line.split('').map((char, charIndex) => {
                     const globalIndex = getGlobalCharIndex(lineIndex, charIndex);
-                    const isVisible = animatedIndices.has(globalIndex);
+                    const isVisible = visibleChars > globalIndex;
                     return (
                       <span
                         key={`${lineIndex}-${charIndex}`}
-                        className={`inline-block transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                        className={`inline-block transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
                         style={{ transitionDelay: '0ms' }}
                       >
                         {char === ' ' ? '\u00A0' : char}
