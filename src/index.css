@@ -472,3 +472,49 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #009ec3, #15082e);
 }
+
+/* Loader Animations */
+@keyframes loadingProgress {
+  0%, 100% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+}
+
+@keyframes loaderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.loader-spin {
+  animation: loaderSpin 1.5s linear infinite;
+}
+
+.loader-spin-reverse {
+  animation: loaderSpin 1s linear infinite reverse;
+}
+
+.loader-pulse {
+  animation: loaderPulse 2s ease-in-out infinite;
+}
+
+.loader-progress {
+  animation: loadingProgress 2s ease-in-out infinite;
+}

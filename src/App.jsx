@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Loader from "./components/Loader";
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,12 +24,13 @@ import BloggingTemplates from "./pages/templates/bloggingTemplates/BloggingTempl
 import ThemePreview from "./pages/ThemePreview";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function AppRoutes() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isDashboardPage = location.pathname === "/dashboard";
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({
@@ -39,6 +41,32 @@ function AppRoutes() {
       offset: 120,
     });
   }, []);
+
+  useEffect(() => {
+    // Simulate loading time and wait for page to be ready
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500); // Minimum loading time of 1.5 seconds
+
+    // Also check if document is fully loaded
+    if (document.readyState === 'complete') {
+      setTimeout(() => setLoading(false), 800);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(() => setLoading(false), 800);
+      });
+    }
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('load', () => setLoading(false));
+    };
+  }, [location.pathname]); // Reset loading when route changes
+
+  // Show loader
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen bg-white">
