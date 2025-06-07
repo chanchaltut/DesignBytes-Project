@@ -252,13 +252,35 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Parallax background attachment for hero sections */
-.parallax-bg {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/* Enhanced parallax background attachment for hero sections */
+
+/* Enhanced styles for elements with inline background-attachment: fixed */
+[style*="background-attachment: fixed"] {
+  background-attachment: fixed !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  /* transform: translateZ(0); */
+  /* -webkit-transform: translateZ(0); */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* will-change: transform; */
 }
+
+/* Fix for mobile devices that don't support fixed backgrounds properly */
+@media (max-width: 768px) {
+  
+}
+
+/* Enhanced support for desktop parallax */
+@media (min-width: 769px) {
+  
+}
+
+/* Additional browser compatibility for parallax */
+
+
+/* Force hardware acceleration for smooth parallax */
 
 /* Custom floating animations for background elements */
 @keyframes float {

@@ -33,9 +33,9 @@ const About = () => {
   return (
     <>
       <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-        {/* Background image with fixed parallax effect */}
+        {/* Background image */}
         <div
-          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: 'url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000")',
             backgroundAttachment: 'fixed'
@@ -72,7 +72,10 @@ const About = () => {
             <img
               src="https://images.unsplash.com/photo-1522071900081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               alt="Design Byte Team"
-              className="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 w-full"
+              onError={(e) => {
+                e.target.src = "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+              }}
             />
           </div>
 

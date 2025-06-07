@@ -56,9 +56,9 @@ const Contact = () => {
         <>
             {/* Hero Section */}
             <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-                {/* Background image with fixed parallax effect */}
+                {/* Background image */}
                 <div
-                    className="absolute inset-0 bg-fixed bg-cover bg-center"
+                    className="absolute inset-0 bg-cover bg-center"
                     style={{
                         backgroundImage: 'url("https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1000")',
                         backgroundAttachment: 'fixed'

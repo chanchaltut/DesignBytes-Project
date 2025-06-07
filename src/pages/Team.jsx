@@ -96,16 +96,16 @@ const Team = () => {
     <>
       {/* Hero Section */}
       <section className="relative min-h-[540px] flex items-center justify-center text-white text-center overflow-hidden">
-        {/* Background image with fixed parallax effect */}
+        {/* Background image */}
         <div
-          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1522071900081-009f0129c71c?q=80&w=1000")',
+            backgroundImage: 'url("/images/team-page-bg.jpg")',
             backgroundAttachment: 'fixed'
           }}
         >
           {/* Subtle dark overlay for text readability */}
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
         {/* Content */}
