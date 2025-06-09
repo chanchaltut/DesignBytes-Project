@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +17,11 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (href) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => navigate(href), 350);
+  };
 
   const navLinks = [
     { name: "HOME", href: "/", icon: "fas fa-home" },
@@ -55,9 +61,9 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden min-[900px]:flex items-center">
             {navLinks.map((link, index) => (
-              <Link
+              <button
                 key={link.name}
-                to={link.href}
+                onClick={() => handleNavClick(link.href)}
                 className={`text-[1rem] px-[20px] py-[5px] uppercase tracking-wide transition-colors relative group 
                   lg:text-[1rem] lg:px-[20px] lg:py-[5px]
                   min-[900px]:text-[0.875rem] min-[900px]:px-[12px] min-[82px]:py-[4px]
@@ -73,11 +79,11 @@ const Navbar = () => {
                   ? 'animate-slide'
                   : 'scale-x-0 group-hover:scale-x-100'
                   }`}></span>
-              </Link>
+              </button>
             ))}
             <div className="flex items-center">
-              <Link
-                to="/login"
+              <button
+                onClick={() => handleNavClick('/login')}
                 className="flex items-center space-x-1 text-[#007bff] hover:text-[#00D4FF] 
                   lg:py-2
                   min-[900px]:py-1.5
@@ -87,7 +93,7 @@ const Navbar = () => {
               >
                 <span className="font-normal lg:text-[1rem] min-[900px]:text-[0.875rem] px-3">Sign Up / Log In</span>
                 <span className="absolute bottom-0 left-0 h-1 bg-[#00D4FF] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -142,11 +148,13 @@ const Navbar = () => {
           </div>
           <nav className="flex-1">
             {navLinks.map((link, index) => (
-              <Link
+              <button
                 key={link.name}
-                to={link.href}
-                className={`flex items-center gap-3 p-3 text-base font-normal border-b border-gray-100 transition-colors ${location.pathname.toLowerCase() === link.href ? 'text-[#00D4FF] font-bold bg-[#e6f7fd]' : 'text-gray-600 hover:text-[#00D4FF]'}`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  handleNavClick(link.href);
+                  setIsOpen(false);
+                }}
+                className={`flex items-center gap-3 p-3 text-base font-normal border-b border-gray-100 transition-colors w-full text-left ${location.pathname.toLowerCase() === link.href ? 'text-[#00D4FF] font-bold bg-[#e6f7fd]' : 'text-gray-600 hover:text-[#00D4FF]'}`}
                 style={{
                   animationDelay: `${index * 100}ms`,
                   transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -155,17 +163,19 @@ const Navbar = () => {
               >
                 <i className={`${link.icon} text-lg`}></i>
                 {link.name}
-              </Link>
+              </button>
             ))}
           </nav>
           <div className="flex space-x-4">
-            <Link
-              to="/login"
-              className="flex items-center justify-center space-x-1 border border-[#00D4FF] text-[#00D4FF] px-6 py-3 hover:bg-[#00D4FF] hover:text-white transition-all rounded-md"
-              onClick={() => setIsOpen(false)}
+            <button
+              onClick={() => {
+                handleNavClick('/login');
+                setIsOpen(false);
+              }}
+              className="flex items-center justify-center space-x-1 border border-[#00D4FF] text-[#00D4FF] px-6 py-3 hover:bg-[#00D4FF] hover:text-white transition-all rounded-md w-full"
             >
               <span className="font-normal">Sign Up / Log In</span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
-  { name: "Why Us", href: "/whyus" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 const columnTitleClass = "text-[1.5rem] text-white font-bold mb-4";
