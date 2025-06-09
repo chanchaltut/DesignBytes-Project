@@ -7,6 +7,7 @@ const Hero = () => {
   const [search, setSearch] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [entryPoint, setEntryPoint] = useState(null);
   const heroRef = useRef(null);
   const cardsRef = useRef([]);
 
@@ -316,8 +317,19 @@ const Hero = () => {
                 data-aos="fade-up"
                 data-aos-delay={itemIndex * 100}
                 ref={el => cardsRef.current[itemIndex] = el}
-                onMouseEnter={() => setHoveredCard(itemIndex)}
-                onMouseLeave={() => setHoveredCard(null)}
+                onMouseEnter={(e) => {
+                  const card = cardsRef.current[itemIndex];
+                  if (card) {
+                    const rect = card.getBoundingClientRect();
+                    const entryX = e.clientX - rect.left;
+                    setEntryPoint(entryX < rect.width / 2 ? 'left' : 'right');
+                  }
+                  setHoveredCard(itemIndex);
+                }}
+                onMouseLeave={() => {
+                  setHoveredCard(null);
+                  setEntryPoint(null);
+                }}
               >
                 <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl">
                   <div className="relative w-full h-48">
@@ -338,17 +350,24 @@ const Hero = () => {
                         `translateX(${(mousePosition.x - (cardsRef.current[itemIndex]?.getBoundingClientRect().left || 0)) * 0.15}px)` :
                         'translateX(0)',
                       transition: 'transform 0.1s ease-out, opacity 0.2s ease-out',
-                      width: '100%',
-                      left: 0,
+                      width: '140%',
+                      left: '-20%',
                       right: 0,
                       margin: 0,
-                      padding: 0
+                      padding: 0,
+                      clipPath: hoveredCard === itemIndex ?
+                        (entryPoint === 'left' ?
+                          `inset(0 ${100 - ((mousePosition.x - (cardsRef.current[itemIndex]?.getBoundingClientRect().left || 0)) / (cardsRef.current[itemIndex]?.offsetWidth || 1) * 100)}% 0 0)` :
+                          `inset(0 0 0 ${((mousePosition.x - (cardsRef.current[itemIndex]?.getBoundingClientRect().left || 0)) / (cardsRef.current[itemIndex]?.offsetWidth || 1) * 100)}%)`)
+                        : 'inset(0 0 0 0)'
                     }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h3 className="text-lg font-semibold drop-shadow-lg">{item.title}</h3>
-                      <p className="text-white font-bold mt-2 drop-shadow-lg">{item.price}</p>
+                    <div className="absolute inset-0 flex items-center justify-center text-white">
+                      <div className="text-center">
+                        <h3 className="text-lg font-semibold drop-shadow-lg">{item.title}</h3>
+                        <p className="text-white font-bold mt-2 drop-shadow-lg">{item.price}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
