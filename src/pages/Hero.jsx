@@ -5,7 +5,10 @@ const Hero = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [visibleChars, setVisibleChars] = useState(0);
   const [search, setSearch] = useState("");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
   const heroRef = useRef(null);
+  const cardsRef = useRef([]);
 
   // Multi-line welcome text
   const welcomeLines = [
@@ -63,6 +66,15 @@ const Hero = () => {
     return () => {
       cancelAnimationFrame(animationId);
     };
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   // Helper function to get character index across all lines
@@ -298,20 +310,46 @@ const Hero = () => {
         return (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {section.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="group" data-aos="fade-up" data-aos-delay={itemIndex * 100}>
+              <div
+                key={itemIndex}
+                className="group relative"
+                data-aos="fade-up"
+                data-aos-delay={itemIndex * 100}
+                ref={el => cardsRef.current[itemIndex] = el}
+                onMouseEnter={() => setHoveredCard(itemIndex)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
                 <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-48 object-cover transform transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <div className="relative w-full h-48">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                     {item.sales} sales
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="text-[#00BBF0] font-bold mt-2">{item.price}</p>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-[#00BBF0]/80 via-[#00BBF0]/70 to-[#00BBF0]/80 backdrop-blur-[1px] transition-all duration-100 ${hoveredCard === itemIndex ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    style={{
+                      transform: hoveredCard === itemIndex ?
+                        `translateX(${(mousePosition.x - (cardsRef.current[itemIndex]?.getBoundingClientRect().left || 0)) * 0.15}px)` :
+                        'translateX(0)',
+                      transition: 'transform 0.1s ease-out, opacity 0.2s ease-out',
+                      width: '100%',
+                      left: 0,
+                      right: 0,
+                      margin: 0,
+                      padding: 0
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <h3 className="text-lg font-semibold drop-shadow-lg">{item.title}</h3>
+                      <p className="text-white font-bold mt-2 drop-shadow-lg">{item.price}</p>
+                    </div>
                   </div>
                 </div>
               </div>
